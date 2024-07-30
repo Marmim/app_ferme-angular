@@ -23,7 +23,6 @@
     "@maptiler/sdk": "^2.2.1",
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "@popperjs/core": "^2.11.6",
-    "@types/events": "^3.0.3",
     "@types/leaflet": "^1.9.12",
     "@types/node": "^20.14.10",
     "bootstrap": "^5.3.3",
