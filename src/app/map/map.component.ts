@@ -58,9 +58,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.coordinatesToAdd) {
       this.dialogRef = this.dialog.open(AddFarmComponent, {
-        width: '400px',
-        position: { top: '10%', left: '35%' },
         data: this.coordinatesToAdd,
+        width: '480px'
       });
 
       this.dialogRef.afterClosed().subscribe(result => {

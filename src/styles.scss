@@ -1,3 +1,11 @@
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import '_maptiler-sdk.css';
 
-@import 'bootstrap/scss/bootstrap';
-
+@import "node_modules/@coreui/coreui/scss/coreui";
+.wrapper {
+  width: 100%;
+  @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
+  @include ltr-rtl("padding-right", var(--cui-sidebar-occupy-end, 0));
+  will-change: auto;
+  @include transition(padding 0.15s);
+}

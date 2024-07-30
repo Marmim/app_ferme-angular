@@ -11,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatSidenavComponent } from './mat-sidenav/mat-sidenav.component';
 import {NgOptimizedImage} from "@angular/common";
-import { HeaderComponent } from './header/header.component';
 import { MapComponent } from './map/map.component';
 import {RouterModule, Routes} from '@angular/router';
 import { AddFarmComponent } from './add-farm/add-farm.component';
@@ -21,6 +20,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatInputModule} from "@angular/material/input";
 import {LoginComponent} from "./login/login.component";
 import { RegisterComponent } from './register/register.component';
+import {
+  ContainerComponent,
+  HeaderComponent,
+  HeaderNavComponent, HeaderTogglerDirective,
+  NavItemComponent,
+  NavLinkDirective, SidebarBrandComponent, SidebarComponent, SidebarModule, SidebarNavComponent, SidebarToggleDirective
+} from "@coreui/angular";
+import {CustomHeaderComponent} from "./header/custom-header.component";
+import {IconDirective} from "@coreui/icons-angular";
+import { LayoutComponent } from './layout/layout.component';
 
 
 const routes: Routes = [
@@ -34,10 +43,11 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     MatSidenavComponent,
-    HeaderComponent,
+    CustomHeaderComponent,
     MapComponent,
     AddFarmComponent,
-    RegisterComponent
+    RegisterComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -56,8 +66,15 @@ const routes: Routes = [
     ReactiveFormsModule,
     NgbModule,
     MatInputModule,
-    LoginComponent
-
+    LoginComponent,
+    HeaderComponent,
+    ContainerComponent,
+    NavItemComponent,
+    NavLinkDirective,
+    HeaderNavComponent,
+    HeaderTogglerDirective,
+    IconDirective,
+    SidebarModule
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}

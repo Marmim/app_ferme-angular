@@ -1,9 +1,6 @@
-// app.component.ts
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AddFarmComponent } from './add-farm/add-farm.component';
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
+import { iconSubset } from './icons/icon-subset';
+import {IconSetService} from "@coreui/icons-angular";
 
 @Component({
   selector: 'app-root',
@@ -13,5 +10,7 @@ import {Router} from "@angular/router";
 export class AppComponent {
   title = 'app-ferme';
 
-
+  constructor(private iconSetService: IconSetService) {
+    iconSetService.icons = { ...iconSubset };
+  }
 }
