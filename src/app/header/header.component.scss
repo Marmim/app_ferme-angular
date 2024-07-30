@@ -1,0 +1,34 @@
+#header {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 20px 30px;
+  justify-content: space-between;
+  box-shadow: 4px 4px 4px #1f880e;
+
+  #logo{
+    font-size:24px;
+    font-weight: bold;
+    color:#333;
+    display:flex;
+    gap:20px;
+    align-items:center;
+    svg{
+      cursor:pointer;
+    }
+  }
+  #menu{
+    display: flex;
+    gap:20px;
+    a{
+      text-decoration: none;
+      color: black;
+      font-size:15px;
+      &:hover{
+        color: #7fbb16;
+      }
+    }
+  }
+
+
+}

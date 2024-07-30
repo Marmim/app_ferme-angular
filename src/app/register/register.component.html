@@ -1,0 +1,13 @@
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <img src="assets/images/img.png" id="logoImage" alt="Logo Image">
+    <h3>Inscrivez-vous si vous n'avez pas encore de compte !</h3>
+    <form>
+      <input type="text" id="username" class="fadeIn second" [(ngModel)]="name" name="name" placeholder="Votre Nom" required>
+      <input type="text" id="email" class="fadeIn second" [(ngModel)]="email" name="email" placeholder="Votre Email" required>
+      <input type="password" id="password" class="fadeIn third" [(ngModel)]="password" name="password" placeholder="Votre Mot de passe" required>
+      <input type="password" id="confirmation" class="fadeIn third" [(ngModel)]="confirmPasswd" name="confirmpassword" placeholder="Confirmer Votre Mot de passe" required>
+      <input type="submit" (click)="handleRegister()" class="fadeIn fourth" value="Inscription">
+    </form>
+  </div>
+</div>

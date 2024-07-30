@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Ajouter une ferme</h2>
+<form [formGroup]="farmForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="modal-body">
+    <div>
+      <p>Longitude: {{ farmForm.get('longitude')?.value }}</p>
+      <p>Latitude: {{ farmForm.get('latitude')?.value }}</p>
+
+      <div class="col-12">
+        <label class="form-label" for="nom">Nom ferme</label>
+        <input class="form-control" formControlName="nom" type="text" id="nom"/>
+      </div>
+      <div class="col-12">
+        <label for="region" class="form-label">Région</label>
+        <select formControlName="region" class="form-select" id="region">
+          <option value="Rabat - Salé - Kénitra">Rabat - Salé - Kénitra</option>
+          <option value="Casablanca - Settat">Casablanca - Settat</option>
+          <option value="Marrakech - Safi">Marrakech - Safi</option>
+        </select>
+      </div>
+      <div class="col-12">
+        <label class="form-label" for="commune">Commune</label>
+        <input class="form-control" formControlName="commune" type="text" id="commune"/>
+      </div>
+      <div class="col-12">
+        <label class="form-label" for="douar">Douar</label>
+        <input class="form-control" formControlName="douar" type="text" id="douar" autocomplete="off"/>
+      </div>
+      <div>
+        <label class="form-label" for="cultures">Cultures</label>
+        <select class="form-control" formControlName="cultures" id="cultures" multiple>
+          <option value="culture1">Culture 1</option>
+          <option value="culture2">Culture 2</option>
+          <option value="culture3">Culture 3</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-12">
+      <label class="form-label" for="cultureCoefficient">CultureCoefficient</label>
+      <input class="form-control" formControlName="cultureCoefficient" type="text" id="cultureCoefficient" autocomplete="off"/>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions class="modal-footer">
+    <button mat-button type="button" (click)="onClose()">Annuler</button>
+    <button mat-button color="primary" type="submit">Créer ferme</button>
+  </mat-dialog-actions>
+</form>

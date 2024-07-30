@@ -1,0 +1,21 @@
+#sidebar{
+  width: 100px;
+  height: 100px;
+  #contenu{
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+
+    a{
+      text-decoration: none;
+      color:#333;
+      padding:15px 80px ;
+      &:hover{
+        background-color: #509444;
+
+      }
+    }
+}
+
+
+}

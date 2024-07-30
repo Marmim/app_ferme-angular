@@ -1,0 +1,46 @@
+
+#container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+
+  app-mat-sidenav
+  {
+    display: block;
+    width: 200px;
+    height: 100%;
+    background: #1f880e;
+    transform:translateX(-100%);
+    transition: transform 0.3s ease-in-out ;
+
+  }
+
+  #contentContainer {
+    flex-grow: 1;
+    transition:margin-left 0.3s ease-in-out;
+    margin-left: -200px;
+
+  }
+  &.sidebarActive{
+    app-mat-sidenav{
+      transform:translateX(0);
+    }
+    #contentContainer{
+      margin-left: 0;
+    }
+
+  }
+}
+
+.map-wrap {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 77px); /* calculate height of the screen minus the heading */
+}
+
+.map {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}

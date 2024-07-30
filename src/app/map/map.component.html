@@ -1,0 +1,25 @@
+<!--
+<div id="container" [ngClass]="{sidebarActive:sidebarActive}">
+  <app-mat-sidenav></app-mat-sidenav>
+  <div id="contentContainer">
+    <app-header
+      (toggleSidebar)="sidebarActive=!sidebarActive"
+      [sidebarActive]="sidebarActive"></app-header>
+  </div>
+</div>
+<div class="map" #map></div>
+-->
+
+<div id="container" [ngClass]="{sidebarActive:sidebarActive}">
+<app-mat-sidenav></app-mat-sidenav>
+<div id="contentContainer">
+<app-header
+  (toggleSidebar)="sidebarActive=!sidebarActive"
+  [sidebarActive]="sidebarActive"></app-header>
+</div>
+
+</div>
+
+<div class="map-wrap">
+  <div class="map" #map></div>
+</div>
