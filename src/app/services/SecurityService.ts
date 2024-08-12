@@ -1,61 +1,67 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { map, Observable } from 'rxjs';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import { Router } from '@angular/router';
+import {catchError, map, Observable, of, tap, throwError} from 'rxjs';
+import {User} from "../models/User";
+import {AuthService} from "./AuthService";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecurityService {
 
-  public name?: string;
+  public username?: string;
   public password?: string;
   public email?: string;
   public confirmPasswd?: string;
-  private apiUrl = environment.hostUrl;
+  private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient , private router: Router,private authService: AuthService,
+  ) {}
 
-  register(name: string, password: string, email: string, confirmPasswd: string): Observable<any> {
-    const body = { name, password, email, confirmPasswd };
-    return this.http.post(`${this.apiUrl}/api/register`, body).pipe(map(res => {
-      this.name = name;
-      this.password = password;
-      this.email = email;
-      this.confirmPasswd = confirmPasswd;
-      this.registerSuccessfulSignup(name, password, email, confirmPasswd);
-      return res;
-    }));
+  getUserByEmail(email: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/api/user?email=${email}`);
+  }
+  register(username: string, password: string, email: string, confirmPasswd: string): Observable<string> {
+    const body = { username, password, email, confirmPasswd };
+    return this.http.post(`${this.apiUrl}/api/inscription`, body,{responseType:"text"}).pipe(
+      tap((accessToken) => {
+        localStorage.setItem("access_token",accessToken)
+        setTimeout(() => {
+         void this.router.navigate(['/login']);
+        }, 1000);
+      }),
+
+    );
   }
 
-  login(name: string, password: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/api/login`, {
-      headers: new HttpHeaders({ authorization: this.createBasicAuthToken(name, password) })
-    }).pipe(map(res => {
-      this.name = name;
-      this.password = password;
-      this.registerSuccessfulLogin(name, password);
-      return res;
-    }));
+
+  login(user: User): Observable<boolean> {
+    return this.http.post<{token: string, email: string}>(`${this.apiUrl}/api/login`, user, { observe: 'response' }).pipe(
+      map(response => {
+        if (response.status === 200 && response.body) {
+          const token = response.body.token;
+          localStorage.setItem('authToken', token);
+          localStorage.setItem('currentUser', JSON.stringify(response.body.email));
+          this.authService.setEmail(response.body.email);
+          return true;
+        }
+        console.error('Login failed: Response body or status is incorrect.');
+        return false;
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.error('Login error:', error.message, error.error);
+        return of(false);
+      })
+    );
   }
 
-  createBasicAuthToken(name: string, password: string): string {
-    return 'Basic ' + window.btoa(`${name}:${password}`);
-  }
 
-  registerSuccessfulLogin(name: string, password: string): void {
-    this.name = name;
-    this.password = password;
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
-
-  registerSuccessfulSignup(name: string, password: string, email: string, confirmPasswd: string): void {
-    this.name = name;
-    this.password = password;
-    this.email = email;
-    this.confirmPasswd = confirmPasswd;
-  }
-
-  logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/logout`, {});
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 }

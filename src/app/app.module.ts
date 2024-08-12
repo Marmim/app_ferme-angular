@@ -9,7 +9,6 @@ import { HttpClientModule} from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MatSidenavComponent } from './mat-sidenav/mat-sidenav.component';
 import {NgOptimizedImage} from "@angular/common";
 import { MapComponent } from './map/map.component';
 import {RouterModule, Routes} from '@angular/router';
@@ -30,24 +29,28 @@ import {
 import {CustomHeaderComponent} from "./header/custom-header.component";
 import {IconDirective} from "@coreui/icons-angular";
 import { LayoutComponent } from './layout/layout.component';
+import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
 
 
 const routes: Routes = [
-  { path: '', component: MatSidenavComponent },
+  { path: '', component: MapComponent },
   { path: 'map', component: MapComponent },
-  { path: 'login', component: LoginComponent}
+  { path: 'login', component: LoginComponent},
+  { path: 'inscription', component: RegisterComponent}
+
+
 
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    MatSidenavComponent,
     CustomHeaderComponent,
     MapComponent,
     AddFarmComponent,
     RegisterComponent,
-    LayoutComponent
+    LayoutComponent,
+    WeatherForecastComponent
   ],
   imports: [
     BrowserModule,

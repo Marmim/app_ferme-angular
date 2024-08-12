@@ -1,3 +1,4 @@
+import {User} from "./User";
 
 export interface Culture{
   nom: string;
@@ -12,7 +13,6 @@ export interface Farm {
   cultures: string[];
   longitude: number;
   latitude: number;
-
 }
 export interface Modified {
   id?: number,
@@ -23,5 +23,4 @@ export interface Modified {
   cultures: Culture[];
   longitude: number;
   latitude: number;
-
 }

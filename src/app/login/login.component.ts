@@ -1,43 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import {SecurityService} from "../services/SecurityService";
 import {FormsModule} from "@angular/forms";
-import {NgIf, NgOptimizedImage} from "@angular/common";
-
+import {NgIf} from "@angular/common";
+import {User} from "../models/User";
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
   standalone: true,
   imports: [
     FormsModule,
-    NgIf,
-    NgOptimizedImage
+    NgIf
   ],
+  styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  username: string = '';
+  email: string = '';
+  password: string = '';
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
 
-  email: string | undefined;
-  password: string | undefined;
-  errorMessage = 'Invalid Credentials';
-  successMessage: string | undefined;
-  invalidLogin = false;
-  loginSuccess = false;
-
-  constructor(private securityService: SecurityService) {}
-
-  ngOnInit(): void {
-  }
+  constructor(private securityService: SecurityService, private router: Router) {}
 
   handleLogin() {
-   // @ts-ignore
-    this.securityService.login(this.email, this.password).subscribe((result) => {
-      this.invalidLogin = false;
-      this.loginSuccess = true;
-      this.successMessage = 'Login Successful';
-    }, () => {
-      this.invalidLogin = true;
-      this.loginSuccess = false;
-    });
+    const user: User = { email: this.email, password: this.password ,username: this.username};
+
+    this.securityService.login(user).subscribe(
+      success => {
+        if (success) {
+          this.successMessage = 'Connexion réussie !';
+          this.errorMessage = null;
+          setTimeout(() => {
+            this.router.navigate(['/map']);
+          }, 1000);
+        } else {
+          this.successMessage = null;
+          this.errorMessage = 'Identifiants incorrects.';
+        }
+      },
+      error => {
+        this.successMessage = null;
+        this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
+      }
+    );
   }
 
 }

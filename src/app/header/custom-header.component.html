@@ -8,9 +8,15 @@
     >
       <svg cIcon name="cilMenu" size="lg"></svg>
     </button>
+    <div *ngIf="currentUser; else loading">
+      <span>Bienvenue, {{ currentUser.username }}!</span>
+    </div>
+    <ng-template #loading>
+      <p>Loading user information...</p>
+    </ng-template>
     <c-header-nav class="ms-auto">
       <div class="d-flex">
-        <span class="p-2">Maryame</span>
+        <a (click)="handleLogout()">Déconnexion</a>
       </div>
     </c-header-nav>
   </c-container>

@@ -18,7 +18,6 @@ export class AddFarmComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { lng: number; lat: number },
     public farmService: FarmService
   ) {
-    // Initialize the form group
     this.farmForm = this.fb.group({
         nom: ['', Validators.required],
         region: ['', Validators.required],
@@ -27,7 +26,7 @@ export class AddFarmComponent implements OnInit {
         longitude: ['', [Validators.required,]],
         latitude: ['', [Validators.required]],
         cultures: [[], Validators.required],
-        cultureCoefficient: ['', Validators.required]
+
       });
   }
 

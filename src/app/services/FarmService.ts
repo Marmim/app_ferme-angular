@@ -10,17 +10,20 @@ import {Farm, Modified} from '../models/farm.model';
   providedIn: 'root'
 })
 export class FarmService {
-  private apiUrl = 'http://localhost:8080/create-farm';
-
+  private apiUrl = 'http://localhost:8080';
 
   constructor(private httpClient: HttpClient) {}
 
-  getAllFarms(): Observable<Farm[]> {
-    return this.httpClient.get<Farm[]>(this.apiUrl);
-  }
   addFarm(farm: Modified): Observable<Modified> {
-    return this.httpClient.post<Modified>(this.apiUrl, farm);
+    const accessToken = localStorage.getItem("access_token");
+    return this.httpClient.post<Modified>(`${this.apiUrl}/create-farm`, farm, {headers:{Authorization:`Basic ${accessToken}`}});
   }
+
+  getAllFarms(): Observable<any[]> {
+    return this.httpClient.get<any[]>(`${this.apiUrl}/farms`);
+  }
+
+
 
   getFarm(id: number): Observable<Farm> {
     return this.httpClient.get<Farm>(`${this.apiUrl}/${id}`);
