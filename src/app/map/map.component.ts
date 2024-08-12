@@ -18,7 +18,7 @@ import { AddFarmComponent } from '../add-farm/add-farm.component';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
-  private map: Map | undefined;
+  private map!: Map;
   private subscription: Subscription | undefined;
   private coordinatesToAdd: { lng: number; lat: number } | undefined;
   private dialogRef: MatDialogRef<AddFarmComponent> | undefined;
