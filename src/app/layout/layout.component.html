@@ -1,13 +1,11 @@
 <c-sidebar id="sidebar" class="d-print-none sidebar sidebar-fixed" visible>
   <c-sidebar-brand>E-rchadata</c-sidebar-brand>
-  <c-sidebar-nav  class="sidebarNav" [navItems]="items" dropdownMode="close"></c-sidebar-nav>
+  <c-sidebar-nav class="sidebarNav" [navItems]="items" dropdownMode="close"></c-sidebar-nav>
 </c-sidebar>
-
-<!--main-->
 <div class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent">
-  <!--app header-->
-  <app-header />
+  <app-header>
+  </app-header>
+    <router-outlet>
+    </router-outlet>
+  </div>
 
-  <!--app body-->
-  <router-outlet />
-</div>

@@ -3,25 +3,28 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
 import {catchError, map, Observable, of, tap, throwError} from 'rxjs';
 import {User} from "../models/User";
-import {AuthService} from "./AuthService";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SecurityService {
 
-  public username?: string;
+  public username: string | undefined;
   public password?: string;
   public email?: string;
   public confirmPasswd?: string;
   private apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient , private router: Router,private authService: AuthService,
+  constructor(private http: HttpClient , private router: Router,
   ) {}
-
-  getUserByEmail(email: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/api/user?email=${email}`);
+  setUsername(username: string) {
+    this.username = username;
   }
+
+  getUsername(): string {
+    return <string>this.username;
+  }
+
   register(username: string, password: string, email: string, confirmPasswd: string): Observable<string> {
     const body = { username, password, email, confirmPasswd };
     return this.http.post(`${this.apiUrl}/api/inscription`, body,{responseType:"text"}).pipe(
@@ -35,22 +38,26 @@ export class SecurityService {
     );
   }
 
-
   login(user: User): Observable<boolean> {
-    return this.http.post<{token: string, email: string}>(`${this.apiUrl}/api/login`, user, { observe: 'response' }).pipe(
+    return this.http.post<{ token: string; username: string; email: string }>(
+      `${this.apiUrl}/api/login`,
+      user,
+      { observe: 'response' }
+    ).pipe(
       map(response => {
         if (response.status === 200 && response.body) {
-          const token = response.body.token;
+          const { token, username } = response.body;
           localStorage.setItem('authToken', token);
-          localStorage.setItem('currentUser', JSON.stringify(response.body.email));
-          this.authService.setEmail(response.body.email);
+          this.setUsername(username);
           return true;
+        } else {
+          console.error('Login failed: Response body or status is incorrect.');
+          return false;
         }
-        console.error('Login failed: Response body or status is incorrect.');
-        return false;
       }),
       catchError((error: HttpErrorResponse) => {
         console.error('Login error:', error.message, error.error);
+        console.error('Error body:', error.error);
         return of(false);
       })
     );

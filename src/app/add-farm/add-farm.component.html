@@ -12,19 +12,25 @@
       <div class="col-12">
         <label for="region" class="form-label">Région</label>
         <select formControlName="region" class="form-select" id="region">
-          <option value="Rabat - Salé - Kénitra">Rabat - Salé - Kénitra</option>
-          <option value="Casablanca - Settat">Casablanca - Settat</option>
-          <option value="Marrakech - Safi">Marrakech - Safi</option>
+          <option *ngFor="let option of regions" [value]="option">
+            {{ option }}
+          </option>
         </select>
       </div>
       <div class="col-12">
         <label class="form-label" for="commune">Commune</label>
-        <input class="form-control" formControlName="commune" type="text" id="commune"/>
-      </div>
+        <select formControlName="commune" class="form-select" id="commune">
+          <option *ngFor="let option of communes" [value]="option.name">
+            {{ option.name }}
+          </option>
+        </select>      </div>
       <div class="col-12">
         <label class="form-label" for="douar">Douar</label>
-        <input class="form-control" formControlName="douar" type="text" id="douar" autocomplete="off"/>
-      </div>
+        <select formControlName="douar" class="form-select" id="douar">
+          <option *ngFor="let option of douars" [value]="option.name">
+            {{ option.name }}
+          </option>
+        </select>      </div>
       <div>
         <label class="form-label" for="cultures">Cultures</label>
         <select class="form-control" formControlName="cultures" id="cultures" multiple>

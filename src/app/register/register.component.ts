@@ -30,12 +30,9 @@ export class RegisterComponent {
         this.errorMessage = null;
       },
       error => {
-        // Handle error response
-        if (error.status === 409) {
+
           this.errorMessage = 'Le nom d\'utilisateur ou l\'email est déjà utilisé.';
-        } else {
-          this.errorMessage = 'Une erreur s\'est produite lors de l\'enregistrement. Veuillez réessayer.';
-        }
+
         this.successMessage = null;
       }
     );

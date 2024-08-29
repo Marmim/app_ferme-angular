@@ -6,11 +6,12 @@ import {
   AfterViewInit,
   OnDestroy
 } from '@angular/core';
-// @ts-ignore
-import {Map, MapStyle, config, Marker, LngLatLike} from '@maptiler/sdk';
+import { Map, MapStyle, config, Marker, LngLatLike } from '@maptiler/sdk';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AddFarmComponent } from '../add-farm/add-farm.component';
+import { Farm } from '../models/farm.model';
+import {FarmService} from "../services/FarmService";
 
 @Component({
   selector: 'app-map',
@@ -24,17 +25,17 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private dialogRef: MatDialogRef<AddFarmComponent> | undefined;
   sidebarActive = false;
 
-  @ViewChild('map') private mapContainer!: ElementRef<HTMLElement>;
+  @ViewChild('map')
+  private mapContainer!: ElementRef<HTMLElement>;
 
-  constructor(private dialog: MatDialog) {
-  }
+  constructor(private dialog: MatDialog, private farmService: FarmService) {}
 
   ngOnInit(): void {
     config.apiKey = 'izk8rTQTThy4px2Bm18C';
   }
 
   ngAfterViewInit() {
-    const initialState = {lng: -6.8361, lat: 34.0209, zoom: 10};
+    const initialState = { lng: -6.8361, lat: 34.0209, zoom: 10 };
 
     this.map = new Map({
       container: this.mapContainer.nativeElement,
@@ -43,13 +44,23 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       zoom: initialState.zoom,
     });
 
-    this.loadMarkers();
+    this.loadUserFarms();
 
-    this.map.on('click', (event: { lngLat: { lng: any; lat: any; }; }) => {
+    this.map.on('click', (event: { lngLat: { lng: any; lat: any } }) => {
       if (event.lngLat) {
-        this.coordinatesToAdd = {lng: event.lngLat.lng, lat: event.lngLat.lat};
+        this.coordinatesToAdd = { lng: event.lngLat.lng, lat: event.lngLat.lat };
         this.openDialog();
       }
+    });
+  }
+
+  loadUserFarms(): void {
+    this.subscription = this.farmService.getFarmsByUser().subscribe(farms => {
+      farms.forEach(farm => {
+        new Marker({ color: '#00FF00' })
+          .setLngLat([farm.longitude, farm.latitude] as LngLatLike)
+          .addTo(this.map);
+      });
     });
   }
 
@@ -66,32 +77,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
       this.dialogRef.afterClosed().subscribe(result => {
         if (result && this.map) {
-          const newMarker = new Marker({color: '#00FF00'})
+          const newMarker = new Marker({ color: '#00FF00' })
             .setLngLat([result.longitude, result.latitude] as LngLatLike)
             .addTo(this.map);
         }
       });
     }
-  }
-
-  saveMarker(longitude: number, latitude: number) {
-    // Récupérer les marqueurs existants
-    const markers = JSON.parse(localStorage.getItem('markers') || '[]');
-    // Ajouter le nouveau marqueur
-    markers.push({ longitude, latitude });
-    // Sauvegarder les marqueurs mis à jour
-    localStorage.setItem('markers', JSON.stringify(markers));
-  }
-
-  loadMarkers() {
-    // Récupérer les marqueurs depuis localStorage
-    const markers = JSON.parse(localStorage.getItem('markers') || '[]');
-    // Ajouter chaque marqueur à la carte
-    markers.forEach((marker: { longitude: number; latitude: number }) => {
-      new Marker({ color: '#00FF00' })
-        .setLngLat([marker.longitude, marker.latitude] as LngLatLike)
-        .addTo(this.map);
-    });
   }
 
   ngOnDestroy(): void {

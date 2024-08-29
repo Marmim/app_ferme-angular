@@ -24,7 +24,12 @@ export class LoginComponent {
   constructor(private securityService: SecurityService, private router: Router) {}
 
   handleLogin() {
-    const user: User = { email: this.email, password: this.password ,username: this.username};
+    const user: User = {
+      username: this.username,
+      password: this.password,
+      email: this.email,
+      farms: []
+    };
 
     this.securityService.login(user).subscribe(
       success => {
@@ -38,12 +43,9 @@ export class LoginComponent {
           this.successMessage = null;
           this.errorMessage = 'Identifiants incorrects.';
         }
-      },
-      error => {
-        this.successMessage = null;
-        this.errorMessage = 'Une erreur est survenue. Veuillez réessayer.';
       }
     );
   }
+
 
 }

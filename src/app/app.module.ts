@@ -30,13 +30,18 @@ import {CustomHeaderComponent} from "./header/custom-header.component";
 import {IconDirective} from "@coreui/icons-angular";
 import { LayoutComponent } from './layout/layout.component';
 import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
+import { SelectedFarmComponent } from './selected-farm/selected-farm.component';
+import { WeathercardsComponent } from './weathercards/weathercards.component';
+import {WeatherchartComponent} from "./weatherchart/weatherchart.component";
+import {ChartjsComponent} from "@coreui/angular-chartjs";
 
 
 const routes: Routes = [
   { path: '', component: MapComponent },
   { path: 'map', component: MapComponent },
   { path: 'login', component: LoginComponent},
-  { path: 'inscription', component: RegisterComponent}
+  { path: 'inscription', component: RegisterComponent},
+  { path: 'weather-forecast', component: WeatherForecastComponent }
 
 
 
@@ -50,7 +55,13 @@ const routes: Routes = [
     AddFarmComponent,
     RegisterComponent,
     LayoutComponent,
-    WeatherForecastComponent
+    SelectedFarmComponent,
+    WeatherForecastComponent,
+    WeathercardsComponent,
+    WeatherchartComponent,
+
+
+
   ],
   imports: [
     BrowserModule,
@@ -77,10 +88,15 @@ const routes: Routes = [
     HeaderNavComponent,
     HeaderTogglerDirective,
     IconDirective,
-    SidebarModule
+    SidebarModule,
+    ChartjsComponent,
+
   ],
   providers: [
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
+  exports: [
+    SelectedFarmComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -8,7 +8,7 @@ import {IconSetService} from "@coreui/icons-angular";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app-ferme';
+  title = 'Erchadata';
 
   constructor(private iconSetService: IconSetService) {
     iconSetService.icons = { ...iconSubset };

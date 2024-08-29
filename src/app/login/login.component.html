@@ -5,12 +5,18 @@
     <img src="assets/images/img.png" id="logoImage" alt="logo Image" height="171" width="396">
     <h3> Connectez-Vous</h3>
     <form>
-      <input type="text" id="username" class="fadeIn second" [(ngModel)]="email" name="Email" placeholder="Votre Email">
-      <input type="password" id="password" class="fadeIn third" [(ngModel)]="password" name="password" placeholder="Votre Mot de passe">
-      <input type="submit" (click)=handleLogin() class="fadeIn fourth" value="Connexion">
-       <a href="inscription" >Inscrivez-Vous </a>
-
-    </form>
-
+      <div>
+        <input type="text" id="username" class="fadeIn second" [(ngModel)]="username" name="username" placeholder="Votre Nom"  #usernameField="ngModel"
+             required>
+      <div class="form-text form-error" style="color: #d51e0e" *ngIf="usernameField.touched && usernameField.invalid">Le champ Nom d'utilisateur est obligatoire      </div>
   </div>
+      <div>
+        <input type="password" id="password" class="fadeIn third" [(ngModel)]="password" name="password" placeholder="Votre Mot de passe" #passwordField="ngModel" required>
+        <div class="form-text form-error" style="color: #d51e0e" *ngIf="passwordField.touched && passwordField.invalid">Le mot de passe est obligatoire</div>
+      </div>
+      <input type="submit" (click)=handleLogin() class="fadeIn fourth" value="Connexion">
+      <a href="inscription" >Inscrivez-Vous </a>
+    </form>
 </div>
+</div>
+

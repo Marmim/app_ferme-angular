@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import { Observable } from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import { environment } from '../../environments/environment';
 import {Farm, Modified} from '../models/farm.model';
 
@@ -19,17 +19,9 @@ export class FarmService {
     return this.httpClient.post<Modified>(`${this.apiUrl}/create-farm`, farm, {headers:{Authorization:`Basic ${accessToken}`}});
   }
 
-  getAllFarms(): Observable<any[]> {
-    return this.httpClient.get<any[]>(`${this.apiUrl}/farms`);
+  getFarmsByUser(): Observable<Modified[]> {
+    const accessToken = localStorage.getItem("access_token");
+    return this.httpClient.get<Modified[]>(`${this.apiUrl}/api/user/farms`,{headers:{Authorization:`Basic ${accessToken}`}})
   }
-
-
-
-  getFarm(id: number): Observable<Farm> {
-    return this.httpClient.get<Farm>(`${this.apiUrl}/${id}`);
   }
-  deleteFarm(id: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`);
-  }
-}
 

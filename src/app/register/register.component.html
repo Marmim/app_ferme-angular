@@ -5,13 +5,25 @@
     <img src="assets/images/img.png" id="logoImage" alt="Logo Image">
     <h3>Pas encore de compte ? Inscrivez-vous !</h3>
     <form #registerForm="ngForm" (ngSubmit)="handleRegister()">
-      <input type="text" id="username" class="fadeIn second" [(ngModel)]="username" name="username" placeholder="Votre Nom" required>
-      <input type="text" id="email" class="fadeIn second" [(ngModel)]="email" name="email" placeholder="Votre Email" required>
-      <input type="password" id="password" class="fadeIn third" [(ngModel)]="password" name="password" placeholder="Votre Mot de passe" required>
-      <input type="password" id="confirmation" class="fadeIn third" [(ngModel)]="confirmPasswd" name="confirmpassword" placeholder="Confirmer Votre Mot de passe" required>
+      <div>
+      <input type="text" id="username" class="fadeIn second" [(ngModel)]="username" name="username" placeholder="Votre Nom" #usernameField="ngModel" required>
+      <div class="form-text form-error" style="color: #d51e0e" *ngIf="usernameField.touched && usernameField.invalid">Votre nom est obligatoire</div>
+      </div>
+      <div>
+      <input type="text" id="email" class="fadeIn second" [(ngModel)]="email" name="email" placeholder="Votre Email" #emailField="ngModel" required>
+      <div class="form-text form-error" style="color: #d51e0e" *ngIf="emailField.touched && emailField.invalid"> Votre Email est obligatoire</div>
+      </div>
+      <div>
+      <input type="password" id="password" class="fadeIn third" [(ngModel)]="password" name="password" placeholder="Votre Mot de passe" #passwordField="ngModel" required>
+      <div class="form-text form-error" style="color: #d51e0e" *ngIf="emailField.touched && emailField.invalid"> Votre mot de passe est obligatoire</div>
+      </div>
+      <div>
+      <input type="password" id="confirmation" class="fadeIn third" [(ngModel)]="confirmPasswd" name="confirmpassword" placeholder="Confirmer Votre Mot de passe" #confirmpasswordField="ngModel" required>
+      <div class="form-text form-error" style="color: #d51e0e" *ngIf="emailField.touched && emailField.invalid"> La confirmation de votre mot de passe est obligatoire</div>
+      </div>
       <input type="submit" class="fadeIn fourth" value="Inscription">
-     <p>Avez-vous déjà un compte ?</p>
-      <a href="#">Se Connecter</a>
+     <p>Avez-vous déjà un compte ? <a href="#"> Se Connecter</a></p>
+
     </form>
   </div>
 </div>

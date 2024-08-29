@@ -46,7 +46,6 @@ export class AddFarmComponent implements OnInit {
       cultureCoefficient:0
     }));
     const modified={...farm,cultures:c}
-    console.log(modified)
     this.farmService.addFarm(modified).subscribe();
     this.dialogRef.close(farm);
   }
@@ -54,4 +53,28 @@ export class AddFarmComponent implements OnInit {
   onClose(): void {
     this.dialogRef.close();
   }
+
+  protected regions = [
+    'Rabat - Salé - Kénitra',
+    'Casablanca - Settat',
+    'Marrakech - Safi',
+  ];
+  protected communes = [
+    { name: 'Rabat', region: 'Rabat - Salé - Kénitra' },
+    { name: 'Témara', region: 'Rabat - Salé - Kénitra' },
+    { name: 'Kénitra', region: 'Rabat - Salé - Kénitra' },
+    { name: 'Ben Slimae', region: 'Casablance - Settat' },
+    { name: 'Berrechid', region: 'Casablance - Settat' },
+    { name: 'El Jadida', region: 'Casablance - Settat' },
+    { name: 'Mohammedia', region: 'Casablance - Settat' },
+  ];
+
+  protected douars = [
+    { name: 'Douar 1', commune: 'Rabat' },
+    { name: 'Douar 2', commune: 'Témara' },
+    { name: 'Douar 3', commune: 'Kénitra' },
+    { name: 'Douar 4', commune: 'Berrechid' },
+    { name: 'Douar 5', commune: 'El Jadida' },
+    { name: 'Douar 6', commune: 'Mohammedia' },
+  ];
 }
