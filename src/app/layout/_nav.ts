@@ -3,7 +3,7 @@ import { INavData } from '@coreui/angular';
 export const items: INavData[] = [
   {
     name: 'Météo Certifiée',
-    url: '/current-weather',
+    url: '/certified-weather',
     icon: 'fa-solid fa-circle-info',
     class: 'custom-nav-item',
   },

@@ -1,9 +1,10 @@
+<div *ngIf="farms && farms.length > 0">
 <select [(ngModel)]="selectedFarmIndex" (ngModelChange)="onFarmChanged($event)">
   <option *ngFor="let farm of farms; let i = index" [value]="i">
     {{ farm.nom }}
   </option>
 </select>
-
+</div>
 <div class="static-page" *ngIf="selectedFarm">
   <div class="d-flex gap-xl-4">
     <div class="d-flex align-items-center gap-xl-1" style="font-size: 0.97rem; color: #806b72">
@@ -22,3 +23,4 @@
     </div>
   </div>
 </div>
+

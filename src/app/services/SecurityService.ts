@@ -21,34 +21,32 @@ export class SecurityService {
     this.username = username;
   }
 
-  getUsername(): string {
-    return <string>this.username;
+  getUsername(): string | undefined {
+    return this.username;
   }
 
   register(username: string, password: string, email: string, confirmPasswd: string): Observable<string> {
     const body = { username, password, email, confirmPasswd };
     return this.http.post(`${this.apiUrl}/api/inscription`, body,{responseType:"text"}).pipe(
       tap((accessToken) => {
-        localStorage.setItem("access_token",accessToken)
         setTimeout(() => {
-         void this.router.navigate(['/login']);
+          void this.router.navigate(['/login']);
         }, 1000);
       }),
 
     );
   }
-
   login(user: User): Observable<boolean> {
-    return this.http.post<{ token: string; username: string; email: string }>(
+    return this.http.post<{token:string,username:string}>(
       `${this.apiUrl}/api/login`,
       user,
       { observe: 'response' }
     ).pipe(
       map(response => {
         if (response.status === 200 && response.body) {
-          const { token, username } = response.body;
-          localStorage.setItem('authToken', token);
-          this.setUsername(username);
+          console.log(response.body);
+          localStorage.setItem('authToken', response.body.token);
+          this.setUsername(response.body.username);
           return true;
         } else {
           console.error('Login failed: Response body or status is incorrect.');
@@ -62,10 +60,8 @@ export class SecurityService {
       })
     );
   }
-
-
   logout(): void {
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
     this.router.navigate(['/login']);
   }
   isLoggedIn(): boolean {

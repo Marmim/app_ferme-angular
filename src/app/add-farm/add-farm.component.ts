@@ -40,16 +40,20 @@ export class AddFarmComponent implements OnInit {
   }
 
   onSubmit() {
-    const farm: Farm = this.farmForm.value;
-    const c= farm.cultures.map(culture => ({
-      nom:culture,
-      cultureCoefficient:0
-    }));
-    const modified={...farm,cultures:c}
-    this.farmService.addFarm(modified).subscribe();
-    this.dialogRef.close(farm);
-  }
+    if (this.farmForm.valid) {
 
+      const farm: Farm = this.farmForm.value;
+      const c = farm.cultures.map(culture => ({
+        nom: culture,
+        cultureCoefficient: 0
+      }));
+      const modified = {...farm, cultures: c}
+      this.farmService.addFarm(modified).subscribe();
+      this.dialogRef.close(farm);
+    } else {
+      this.farmForm.markAllAsTouched();
+    }
+  }
   onClose(): void {
     this.dialogRef.close();
   }

@@ -1,4 +1,3 @@
-<h2 mat-dialog-title>Ajouter une ferme</h2>
 <form [formGroup]="farmForm" (ngSubmit)="onSubmit()">
   <mat-dialog-content class="modal-body">
     <div>
@@ -8,7 +7,11 @@
       <div class="col-12">
         <label class="form-label" for="nom">Nom ferme</label>
         <input class="form-control" formControlName="nom" type="text" id="nom"/>
+        <mat-error *ngIf="farmForm.get('nom')?.hasError('required') && farmForm.get('nom')?.touched">
+          Le nom de la ferme est requis.
+        </mat-error>
       </div>
+
       <div class="col-12">
         <label for="region" class="form-label">Région</label>
         <select formControlName="region" class="form-select" id="region">
@@ -16,21 +19,35 @@
             {{ option }}
           </option>
         </select>
+        <mat-error *ngIf="farmForm.get('region')?.hasError('required') && farmForm.get('region')?.touched">
+          La région est requise.
+        </mat-error>
       </div>
+
       <div class="col-12">
         <label class="form-label" for="commune">Commune</label>
         <select formControlName="commune" class="form-select" id="commune">
           <option *ngFor="let option of communes" [value]="option.name">
             {{ option.name }}
           </option>
-        </select>      </div>
+        </select>
+        <mat-error *ngIf="farmForm.get('commune')?.hasError('required') && farmForm.get('commune')?.touched">
+          La commune est requise.
+        </mat-error>
+      </div>
+
       <div class="col-12">
         <label class="form-label" for="douar">Douar</label>
         <select formControlName="douar" class="form-select" id="douar">
           <option *ngFor="let option of douars" [value]="option.name">
             {{ option.name }}
           </option>
-        </select>      </div>
+        </select>
+        <mat-error *ngIf="farmForm.get('douar')?.hasError('required') && farmForm.get('douar')?.touched">
+          Le douar est requis.
+        </mat-error>
+      </div>
+
       <div>
         <label class="form-label" for="cultures">Cultures</label>
         <select class="form-control" formControlName="cultures" id="cultures" multiple>
@@ -38,9 +55,13 @@
           <option value="culture2">Culture 2</option>
           <option value="culture3">Culture 3</option>
         </select>
+        <mat-error *ngIf="farmForm.get('cultures')?.hasError('required') && farmForm.get('cultures')?.touched">
+          Les cultures sont requises.
+        </mat-error>
       </div>
     </div>
   </mat-dialog-content>
+
   <mat-dialog-actions class="modal-footer">
     <button mat-button type="button" (click)="onClose()">Annuler</button>
     <button mat-button color="primary" type="submit">Créer ferme</button>

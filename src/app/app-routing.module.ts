@@ -6,6 +6,7 @@ import { RegisterComponent } from './register/register.component';
 import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
 import { LayoutComponent } from './layout/layout.component';
 import { SelectedFarmComponent } from './selected-farm/selected-farm.component';
+import {CertifiedWeatherComponent} from "./certified-weather/certified-weather.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -16,6 +17,8 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: 'weather-forecast', component: WeatherForecastComponent },
+      { path: 'certified-weather', component: CertifiedWeatherComponent },
+
 
     ]
   },

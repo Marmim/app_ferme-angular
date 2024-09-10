@@ -28,10 +28,10 @@ body {
   grid-template-columns: repeat(4, 2fr);
   gap: 32px;
   padding: 30px;
+
   @media screen and (max-width: 991px) {
     grid-template-columns: 1fr;
   }
-  margin-left: 0px;
 }
 
 .container-card {
@@ -40,13 +40,17 @@ body {
   background: linear-gradient(71deg, #6f7e6b, #789a73, #2a3a23);
   background-clip: padding-box;
   border-radius: 45px;
-  padding: 40px;
+  padding: 20px;
   width: 280px;
   height: 200px;
+  display: flex;
+  justify-content: space-between; // Distribute space between SVG, title, and value
+  align-items: center; // Center vertically
+  margin-left: -60px;
+
   img {
     margin-bottom: 32px;
   }
-  margin-left: -60px;
 }
 
 .bg-green-box,
@@ -70,12 +74,23 @@ body {
   border-radius: 45px;
 }
 
-
 .card-title {
   font-weight: 600;
   color: white;
   line-height: 40px;
   font-style: normal;
   font-size: 18px;
-  padding-bottom: 20px;
+  margin-left: 20px;
+}
+
+.value {
+  font-size: 16px;
+  font-weight: bold;
+  color: #0e0e10;
+  text-align: right;
+}
+
+.svg-container {
+  display: flex;
+  align-items: center;
 }

@@ -32,8 +32,11 @@ import { LayoutComponent } from './layout/layout.component';
 import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
 import { SelectedFarmComponent } from './selected-farm/selected-farm.component';
 import { WeathercardsComponent } from './weathercards/weathercards.component';
-import {WeatherchartComponent} from "./weatherchart/weatherchart.component";
 import {ChartjsComponent} from "@coreui/angular-chartjs";
+import { WeatherChartComponent } from './weather-chart/weather-chart.component';
+import { CertifiedWeatherComponent } from './certified-weather/certified-weather.component';
+import { EditFarmComponent } from './edit-farm/edit-farm.component';
+import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 
 
 const routes: Routes = [
@@ -41,7 +44,10 @@ const routes: Routes = [
   { path: 'map', component: MapComponent },
   { path: 'login', component: LoginComponent},
   { path: 'inscription', component: RegisterComponent},
-  { path: 'weather-forecast', component: WeatherForecastComponent }
+  { path: 'weather-forecast', component: WeatherForecastComponent },
+  { path: 'certified-weather', component: CertifiedWeatherComponent }
+
+
 
 
 
@@ -55,10 +61,12 @@ const routes: Routes = [
     AddFarmComponent,
     RegisterComponent,
     LayoutComponent,
-    SelectedFarmComponent,
     WeatherForecastComponent,
     WeathercardsComponent,
-    WeatherchartComponent,
+    WeatherChartComponent,
+    CertifiedWeatherComponent,
+    ConfirmDeleteComponent,
+
 
 
 
@@ -90,6 +98,9 @@ const routes: Routes = [
     IconDirective,
     SidebarModule,
     ChartjsComponent,
+    SelectedFarmComponent,
+    SelectedFarmComponent,
+    EditFarmComponent,
 
   ],
   providers: [

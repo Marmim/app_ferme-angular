@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable, tap} from 'rxjs';
 import { environment } from '../../environments/environment';
 import {Farm, Modified} from '../models/farm.model';
@@ -15,13 +15,25 @@ export class FarmService {
   constructor(private httpClient: HttpClient) {}
 
   addFarm(farm: Modified): Observable<Modified> {
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken = localStorage.getItem("authToken");
     return this.httpClient.post<Modified>(`${this.apiUrl}/create-farm`, farm, {headers:{Authorization:`Basic ${accessToken}`}});
   }
 
   getFarmsByUser(): Observable<Modified[]> {
-    const accessToken = localStorage.getItem("access_token");
+    const accessToken = localStorage.getItem("authToken");
     return this.httpClient.get<Modified[]>(`${this.apiUrl}/api/user/farms`,{headers:{Authorization:`Basic ${accessToken}`}})
   }
+  deleteFarmById(id: number): Observable<void> {
+    const accessToken = localStorage.getItem("authToken");
+    const headers = new HttpHeaders({
+      'Authorization': `Basic ${accessToken}`
+    });
+    return this.httpClient.delete<void>(`${this.apiUrl}/deletefarms/${id}`, { headers });
   }
 
+  updateFarm(id: number | undefined, farm: Modified): Observable<Modified> {
+    const accessToken = localStorage.getItem("authToken");
+    return this.httpClient.put<Modified>(`${this.apiUrl}/updatefarms/${id}`, farm, {headers:{Authorization:`Basic ${accessToken}`}});
+  }
+
+}

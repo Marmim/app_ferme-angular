@@ -1,0 +1,31 @@
+.weekdays-container {
+  margin: 1rem;
+  padding: 1rem;
+  background-color: #cfd8ce;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgb(34, 142, 22);
+  overflow-x: auto;  // Optional: adds horizontal scrolling if needed
+}
+
+.weekdays-list {
+  display: flex;
+  flex-wrap: nowrap;  // Prevents wrapping to the next line
+  gap: 1rem;          // Adds space between items
+}
+
+.weekday {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  text-align: center;
+  transition: text-decoration 0.3s ease;  // Smooth transition for the underline effect
+}
+
+.weekday:hover {
+  text-decoration: underline;  // Adds an underline on hover
+}
+.weekday.selected {
+  background-color: #2FCB89;
+  color: white;
+  text-decoration: none;
+}

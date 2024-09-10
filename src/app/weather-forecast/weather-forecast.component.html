@@ -1,7 +1,51 @@
-<div class="weather-forecast-container">
-  <app-selected-farm>
-
-  </app-selected-farm>
+<!-- Modal pour aucune ferme trouvée -->
+<div class="modal fade" id="noFarmsModal" tabindex="-1" role="dialog" aria-labelledby="noFarmsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="background-color:#f3e5ad">
+      <div class="modal-header">
+        <i class="fa fa-warning" style="font-size:35px;color:#ffcc00"></i>
+        <h5 class="modal-title" id="noFarmsModalLabel">Aucune ferme ajoutée</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Aucune ferme ajoutée.
+      </div>
+    </div>
+  </div>
 </div>
-<app-weathercards></app-weathercards>
-<app-weatherchart></app-weatherchart>
+
+<!-- Composant de sélection de ferme -->
+<app-selected-farm
+  [farms]="farms"
+  [selectedFarmIndex]="selectedFarmIndex"
+  [selectedFarm]="selectedFarm"
+  (farmChanged)="onFarmChanged($event)">
+</app-selected-farm>
+<br><br>
+
+<!-- Liste des jours de la semaine -->
+<div class="weekdays-container">
+  <div class="weekdays-list">
+    <div
+      class="weekday"
+      *ngFor="let day of weekdays; let i = index"
+      (click)="onDaySelected(i)"
+      [class.selected]="selectedDayIndex === i"
+    >
+      {{ day }}
+    </div>
+  </div>
+</div>
+<app-weathercards
+  [temperature]="weatherData?.daily?.temperature_max"
+  [relativeHumidity]="weatherData?.daily?.relativeHumidityMean[selectedDayIndex]"
+  [windSpeed]="weatherData?.daily?.windSpeedMean [selectedDayIndex]"
+  [precipitation]="weatherData?.daily?.precipitation [selectedDayIndex]">
+</app-weathercards>
+
+<app-weather-chart
+  [temperature]="weatherData?.hourly?.temperature[selectedDayIndex]"
+
+></app-weather-chart>

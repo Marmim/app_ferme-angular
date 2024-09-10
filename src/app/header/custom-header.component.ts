@@ -9,7 +9,7 @@ import {User} from "../models/User";
   styleUrls: ['./custom-header.component.scss']
 })
 export class CustomHeaderComponent  implements OnInit{
-  username: string | null = null;
+  username: string | undefined;
   @Input() sidebarId = 'sidebar';
   constructor(
     private securityService: SecurityService,

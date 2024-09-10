@@ -1,4 +1,6 @@
+
 export const environment = {
-  apiUrl: undefined,
-  hostUrl: undefined
+  production: false,
+  apiUrl: 'https://my.meteoblue.com/packages',
+  apiKey: 'xBmAgEZLo70JiWQ8',
 };

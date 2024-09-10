@@ -10,8 +10,11 @@ import { Map, MapStyle, config, Marker, LngLatLike } from '@maptiler/sdk';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AddFarmComponent } from '../add-farm/add-farm.component';
-import { Farm } from '../models/farm.model';
+import {Farm, Modified} from '../models/farm.model';
 import {FarmService} from "../services/FarmService";
+import {marker} from "leaflet";
+import {EditFarmComponent} from "../edit-farm/edit-farm.component";
+import {ConfirmDeleteComponent} from "../confirm-delete/confirm-delete.component";
 
 @Component({
   selector: 'app-map',
@@ -23,7 +26,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private subscription: Subscription | undefined;
   private coordinatesToAdd: { lng: number; lat: number } | undefined;
   private dialogRef: MatDialogRef<AddFarmComponent> | undefined;
-  sidebarActive = false;
+
 
   @ViewChild('map')
   private mapContainer!: ElementRef<HTMLElement>;
@@ -32,6 +35,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     config.apiKey = 'izk8rTQTThy4px2Bm18C';
+
   }
 
   ngAfterViewInit() {
@@ -46,10 +50,14 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.loadUserFarms();
 
-    this.map.on('click', (event: { lngLat: { lng: any; lat: any } }) => {
+    // Ajout d'un événement de clic pour la carte
+    this.map.on('click', (event: { lngLat: { lng: any; lat: any }; originalEvent: MouseEvent  }) => {
       if (event.lngLat) {
-        this.coordinatesToAdd = { lng: event.lngLat.lng, lat: event.lngLat.lat };
-        this.openDialog();
+        // Assurez-vous que le clic n'a pas été fait sur un marqueur
+        if (!event.originalEvent.defaultPrevented) {
+          this.coordinatesToAdd = { lng: event.lngLat.lng, lat: event.lngLat.lat };
+          this.openDialog();
+        }
       }
     });
   }
@@ -57,9 +65,21 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   loadUserFarms(): void {
     this.subscription = this.farmService.getFarmsByUser().subscribe(farms => {
       farms.forEach(farm => {
-        new Marker({ color: '#00FF00' })
+        const markerElement = document.createElement('img');
+        markerElement.src = 'https://docs.mapbox.com/help/demos/custom-markers-gl-js/mapbox-icon.png'; // URL de l'icône de marqueur
+        markerElement.style.width = '30px';
+        markerElement.style.height = '40px';
+
+        const marker = new Marker({ element: markerElement })
           .setLngLat([farm.longitude, farm.latitude] as LngLatLike)
           .addTo(this.map);
+
+        // Clic gauche pour modifier
+        markerElement.addEventListener('click', (event: MouseEvent) => {
+          event.stopPropagation();
+          this.openEditFarmDialog(farm);
+        });
+
       });
     });
   }
@@ -84,6 +104,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     }
   }
+
+  openEditFarmDialog(farm: Modified): void {
+    const dialogRef = this.dialog.open(EditFarmComponent, {
+      width: '480px',
+      data: farm
+    });
+
+  }
+
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
