@@ -1,0 +1,10 @@
+<div class="chart">  <div class="select-wrapper">
+  <select [(ngModel)]="selected" (ngModelChange)="onSelect()">
+    <option *ngFor="let variable of variables" [value]="variable.variable">
+      {{ variable.label }}
+    </option>
+  </select>
+</div>
+
+  <c-chart type="line" [data]="data" [options]="options()"></c-chart>
+</div>

@@ -1,0 +1,38 @@
+/* confirm-delete.component.scss */
+
+/* Style du titre du dialogue */
+.mat-dialog-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Style du contenu du dialogue */
+.mat-dialog-content {
+  margin: 20px 0;
+}
+
+/* Style du texte de confirmation */
+.mat-dialog-content p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Style pour le bouton de confirmation */
+.confirm-button {
+  background-color: #f44336; /* Couleur rouge pour la confirmation */
+  color: white;
+  font-weight: bold;
+  &:hover {
+    background-color: #c62828; /* Couleur rouge plus foncé au survol */
+  }
+}
+
+/* Style pour le bouton d'annulation */
+.cancel-button {
+  color: #1976d2; /* Couleur bleue pour l'annulation */
+  font-weight: bold;
+  &:hover {
+    color: #004ba0; /* Couleur bleue plus foncée au survol */
+  }
+}

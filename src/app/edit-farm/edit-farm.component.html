@@ -1,0 +1,37 @@
+<h4>Modifier les informations de la ferme</h4>
+<form (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Nom de la ferme</mat-label>
+    <input matInput [(ngModel)]="farm.nom" name="name" required />
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Region</mat-label>
+    <textarea matInput [(ngModel)]="farm.region" name="region"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+  <mat-label>Commune</mat-label>
+  <textarea matInput [(ngModel)]="farm.commune" name="commune"></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Cultures</mat-label>
+    <textarea matInput [(ngModel)]="culturesString" name="cultures"></textarea>
+
+  </mat-form-field>
+  <mat-form-field>
+  <mat-label>Douar</mat-label>
+  <textarea matInput [(ngModel)]="farm.douar" name="douar"></textarea>
+  </mat-form-field>
+  <div class="button-container">
+    <button mat-button type="submit" class="edit-button" (click)="updateFarm()">
+      <i class="fa-solid fa-pen-to-square"></i> Modifier
+    </button>
+    <button mat-button type="submit" class="delete-button" (click)="openConfirmDeleteDialog()">
+      <i class="fa-solid fa-trash"></i> Supprimer
+    </button>
+    <button mat-button mat-dialog-close class="cancel-button">
+      Annuler
+    </button>
+  </div>
+
+</form>
