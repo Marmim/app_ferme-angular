@@ -9,17 +9,19 @@ import {User} from "../models/User";
   styleUrls: ['./custom-header.component.scss']
 })
 export class CustomHeaderComponent  implements OnInit{
-  username: string | undefined;
+  username: string | null = '';
+
   @Input() sidebarId = 'sidebar';
   constructor(
     private securityService: SecurityService,
   ) { }
 
   ngOnInit(): void {
-    this.username = this.securityService.getUsername();
+    this.username = localStorage.getItem('username');
   }
 
   handleLogout(): void {
+    localStorage.removeItem('username');
     this.securityService.logout();
   }
 }

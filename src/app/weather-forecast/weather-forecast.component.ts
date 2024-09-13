@@ -6,32 +6,6 @@ import {HourlyDailyWeather, HourlyDailyWeatherService} from "./HourlyDailyWeathe
 import {FarmService} from "../services/FarmService";
 import {round} from "@popperjs/core/lib/utils/math";
 
-interface DailyWeather {
-  temperature_max: number;
-  relativeHumidityMean: number;
-  windSpeedMean: number;
-  windDirection: number;
-  precipitation: number;
-  evapotranspiration: number;
-}
-
-export interface HourlyWeather {
-  temperature: number[][];
-  relativeHumidity: number[][];
-  windSpeed: number[][];
-  windDirection: number[][];
-  precipitation: number[][];
-}
-
-interface WeatherInfo {
-  daily: DailyWeather;
-  hourly: HourlyWeather;
-}
-
-export interface FarmWeatherInfo {
-  farm: Farm;
-  weatherInfo: WeatherInfo;
-}
 
 @Component({
   selector: 'app-weather-forecast',
@@ -66,6 +40,7 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
   onFarmChanged(selectedIndex: number): void {
     this.selectedFarmIndex = selectedIndex;
     this.updateSelectedFarm(selectedIndex);
+
   }
 
   updateSelectedFarm(index: number): void {
@@ -73,24 +48,27 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
       this.selectedFarm = this.farms[index];
       this.noFarmsMessage = null;
 
-      if (this.selectedFarm && this.selectedFarm.id && this.selectedFarm.latitude && this.selectedFarm.longitude) {
-        this.hourlyDailyWeatherService.getWeatherData(this.selectedFarm.id, this.selectedFarm.latitude, this.selectedFarm.longitude).subscribe(
-          (weatherData: any) => {
+      if (this.selectedFarm.latitude && this.selectedFarm.longitude) {
+        this.hourlyDailyWeatherService.getWeatherData(this.selectedFarm.latitude, this.selectedFarm.longitude).subscribe({
+          next: (weatherData: any) => {
             this.weatherData = weatherData;
-            console.log(weatherData)
           },
-          (error: any) => {
+          error: (error: any) => {
             console.error('Error fetching weather data', error);
+          },
+          complete: () => {
+            console.log('Weather data fetch completed');
           }
-        );
+        });
       }
-
     }
   }
 
 
+
   onDaySelected(index: number): void {
     this.selectedDayIndex = index;
+    console.log(index)
     this.updateSelectedFarm(this.selectedFarmIndex);
   }
 
@@ -98,13 +76,15 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
     if (!this.farms || this.farms.length === 0) {
       this.noFarmsMessage = "Aucune ferme ajoutée";
       this.selectedFarm = undefined;
+
       const modalElement = this.renderer.selectRootElement('#noFarmsModal', true);
-      const modal = new bootstrap.Modal(modalElement);
+      const modal = new bootstrap.Modal(modalElement, { keyboard: false });
       modal.show();
     } else {
       this.noFarmsMessage = null;
     }
   }
+
 
   ngOnDestroy(): void {
     if (this.subscription) {

@@ -15,9 +15,9 @@ export interface CurrentWeather {
 export class weatherChartService {
   private http = inject(HttpClient);
 
-  currentWeather(farmId: number | undefined, lat: number, lon: number) {
+  currentWeather(lat: number, lon: number) {
     const apiKey = environment.apiKey;
-    const url = `${environment.apiUrl}/basic-1h?lat=${lat}&lon=${lon}&apikey=${apiKey}&farmId=${farmId}`;
+    const url = `${environment.apiUrl}/basic-1h?lat=${lat}&lon=${lon}&apikey=${apiKey}`;
     return this.http.get<CurrentWeather>(url);
   }
 }

@@ -1,51 +1,14 @@
-#header {
-  display: flex;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 20px 30px;
-  justify-content: space-between;
-  box-shadow: 4px 4px 4px #1f880e;
-
-  #logo{
-    font-size:24px;
-    font-weight: bold;
-    color:#333;
-    display:flex;
-    gap:20px;
-    align-items:center;
-    svg{
-      cursor:pointer;
-    }
-  }
-  #menu{
-    display: flex;
-    gap:20px;
-    a{
-      text-decoration: none;
-      color: black;
-      font-size:15px;
-      &:hover{
-        color: #7fbb16;
-      }
-    }
-  }
-
-}
-.d-flex a {
-  color: #0e0e10;
-  font-family: "Arial";
-  text-decoration: none;
-  margin-left: -150px;
-
-
+c-header {
+  background-color: #f6f6f6; /* Fond blanc */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Ligne subtile en bas */
 }
 
-.d-flex a:hover {
-  color: #2d8131;
-  text-decoration: none;
-
+h5 {
+  font-family: 'Roboto', sans-serif; /* Police moderne */
+  letter-spacing: 0.5px; /* Espacement des lettres */
 }
-p {
-  font-family: 'Arial Black', sans-serif;
-  font-size: 15px;
+
+a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease; /* Animation de transition */
 }

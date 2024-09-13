@@ -1,17 +1,29 @@
 <c-header>
-  <c-container fluid>
+  <c-container fluid class="d-flex align-items-center">
+    <!-- Menu Toggle Button -->
     <button
       toggle="visible"
       cHeaderToggler
       [cSidebarToggle]="sidebarId"
-      class="ps-1"
+      class="btn btn-outline-secondary me-3"
+      aria-label="Toggle Menu"
     >
-      <svg cIcon name="cilMenu" size="lg"></svg>
+      <svg cIcon name="cilMenu" size="lg" class="text-secondary"></svg>
     </button>
-    <p>Bienvenue, {{username}} !</p>
+
+    <!-- Welcome Message -->
+    <h5 class="mb-0 flex-grow-1">Bienvenue, <span class="fw-bold">{{ username }}</span> !</h5>
+
+    <!-- Logout Button -->
     <c-header-nav class="ms-auto">
-      <div class="d-flex">
-        <a (click)="handleLogout()">Déconnexion</a>
+      <div class="d-flex align-items-center">
+        <a
+          class="text-dark text-decoration-none btn btn-outline-secondary px-3 py-2 d-flex align-items-center"
+          (click)="handleLogout()"
+        >
+          <i class="fa-solid fa-arrow-right-from-bracket me-2"></i>
+          <span>Déconnexion</span>
+        </a>
       </div>
     </c-header-nav>
   </c-container>

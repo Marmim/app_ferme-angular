@@ -1,7 +1,17 @@
-<!-- Composant de sélection de ferme -->
 <app-selected-farm
   [farms]="farms"
   [selectedFarmIndex]="selectedFarmIndex"
   [selectedFarm]="selectedFarm"
   (farmChanged)="onFarmChanged($event)">
 </app-selected-farm>
+<br><br>
+<div class="container">
+    <app-currentweathercards
+      *ngFor="let atm of weather"
+    [temp]="atm.temp"
+    [target]="atm.target"
+    [weather]="atm.weather"
+    [video]="atm.video">
+    </app-currentweathercards>
+  </div>
+

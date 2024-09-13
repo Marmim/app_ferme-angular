@@ -44,8 +44,8 @@ export class SecurityService {
     ).pipe(
       map(response => {
         if (response.status === 200 && response.body) {
-          console.log(response.body);
           localStorage.setItem('authToken', response.body.token);
+          localStorage.setItem('username', response.body.username);
           this.setUsername(response.body.username);
           return true;
         } else {

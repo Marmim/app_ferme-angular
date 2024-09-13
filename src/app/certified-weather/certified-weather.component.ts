@@ -3,6 +3,7 @@ import {Modified} from "../models/farm.model";
 import {Subscription} from "rxjs";
 import {FarmService} from "../services/FarmService";
 import * as bootstrap from 'bootstrap';
+import {style} from "@angular/animations";
 
 
 @Component({
@@ -17,8 +18,39 @@ export class CertifiedWeatherComponent implements OnInit, OnDestroy  {
   selectedDayIndex: number = 0;
   noFarmsMessage: string | null = null;
 
-
   private subscription: Subscription | undefined;
+
+  weather = [
+    {
+      temp: '28°C',
+      target: 'précipitations',
+      weather: 'Précipitations',
+      video: './assets/images/rain.gif',
+
+    },
+
+    {
+      temp: '40°C',
+      target: 'Temperature',
+      weather: 'Temperature',
+      video: './assets/images/sun.gif',
+
+    },
+    {
+      temp: '30°C',
+      target: 'Humidité',
+      weather: 'Humidité',
+      video: './assets/images/humidite.gif',
+
+    },
+    {
+      temp: '28°C',
+      target: 'vitesse',
+      weather: 'Vitesse du vent',
+      video: './assets/images/wind.gif',
+
+    },
+  ];
 
   constructor(
     private farmService: FarmService,

@@ -39,13 +39,10 @@
   </div>
 </div>
 <app-weathercards
-  [temperature]="weatherData?.daily?.temperature_max"
-  [relativeHumidity]="weatherData?.daily?.relativeHumidityMean[selectedDayIndex]"
-  [windSpeed]="weatherData?.daily?.windSpeedMean [selectedDayIndex]"
-  [precipitation]="weatherData?.daily?.precipitation [selectedDayIndex]">
+  [temperature]="weatherData?.data_day?.temperature_max[selectedDayIndex]"
+  [relativeHumidity]="weatherData?.data_day?.relativehumidity_mean[selectedDayIndex]"
+  [windSpeed]="weatherData?.data_day?.windspeed_mean [selectedDayIndex]"
+  [precipitation]="weatherData?.data_day?.precipitation [selectedDayIndex]">
 </app-weathercards>
 
-<app-weather-chart
-  [temperature]="weatherData?.hourly?.temperature[selectedDayIndex]"
 
-></app-weather-chart>

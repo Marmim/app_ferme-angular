@@ -37,6 +37,7 @@ import { WeatherChartComponent } from './weather-chart/weather-chart.component';
 import { CertifiedWeatherComponent } from './certified-weather/certified-weather.component';
 import { EditFarmComponent } from './edit-farm/edit-farm.component';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import { CurrentweathercardsComponent } from './currentweathercards/currentweathercards.component';
 
 
 const routes: Routes = [
@@ -66,6 +67,7 @@ const routes: Routes = [
     WeatherChartComponent,
     CertifiedWeatherComponent,
     ConfirmDeleteComponent,
+    CurrentweathercardsComponent,
 
 
 
