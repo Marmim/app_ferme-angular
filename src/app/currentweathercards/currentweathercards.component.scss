@@ -1,0 +1,40 @@
+
+.container {
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 200px;
+}
+.Temperature {
+  background-color: #8295c1;
+}
+.Humidité {
+  background-color: #c35f0d;
+}
+.vitesse {
+  background-color: #846097;
+}
+.précipitations {
+  background-color: #266cac;
+}
+
+
+
+.temperature {
+  font-size: 24px;
+}
+
+
+.weather {
+  font-size: 18px;
+}
+
+.video {
+  width: 100%;
+  height: auto;
+}
+
+.place {
+  display: flex;
+  align-items: center;
+}
