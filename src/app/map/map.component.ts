@@ -1,20 +1,13 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit,
-  OnDestroy
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { Map, MapStyle, config, Marker, LngLatLike } from '@maptiler/sdk';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AddFarmComponent } from '../add-farm/add-farm.component';
-import {Farm, Modified} from '../models/farm.model';
-import {FarmService} from "../services/FarmService";
-import {marker} from "leaflet";
-import {EditFarmComponent} from "../edit-farm/edit-farm.component";
-import {ConfirmDeleteComponent} from "../confirm-delete/confirm-delete.component";
+import { Farm, Modified } from '../models/farm.model';
+import { FarmService } from "../services/FarmService";
+import { marker } from "leaflet";
+import { EditFarmComponent } from "../edit-farm/edit-farm.component";
+import { ConfirmDeleteComponent } from "../confirm-delete/confirm-delete.component";
 
 @Component({
   selector: 'app-map',
@@ -27,7 +20,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private coordinatesToAdd: { lng: number; lat: number } | undefined;
   private dialogRef: MatDialogRef<AddFarmComponent> | undefined;
 
-
   @ViewChild('map')
   private mapContainer!: ElementRef<HTMLElement>;
 
@@ -35,7 +27,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     config.apiKey = 'izk8rTQTThy4px2Bm18C';
-
   }
 
   ngAfterViewInit() {
@@ -110,9 +101,31 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       width: '480px',
       data: farm
     });
-
   }
 
+  locateUser(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const lat = position.coords.latitude;
+          const lng = position.coords.longitude;
+          this.map.setCenter([lng, lat] as LngLatLike);
+          this.map.setZoom(15);
+
+          const userMarker = new Marker({ color: '#11ff00' })
+            .setLngLat([lng, lat] as LngLatLike)
+            .addTo(this.map);
+
+        },
+        error => {
+          console.error("Erreur de géolocalisation : ", error);
+          alert("Impossible de récupérer la position actuelle.");
+        }
+      );
+    } else {
+      alert("La géolocalisation n'est pas supportée par votre navigateur.");
+    }
+  }
 
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();

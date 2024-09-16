@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, numberAttribute} from '@angular/core';
 
 @Component({
   selector: 'app-currentweathercards',
@@ -6,9 +6,9 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./currentweathercards.component.scss']
 })
 export class CurrentweathercardsComponent {
-  @Input() temp!: string;
-  @Input() target!: string;
-  @Input() weather!: string;
-  @Input() video!: string;
+  @Input({transform: numberAttribute}) temperature: number | undefined;
+  @Input({transform: numberAttribute}) relativeHumidity: number | undefined;
+  @Input({transform: numberAttribute}) windSpeed: number | undefined;
+  @Input({transform: numberAttribute}) precipitation: number | undefined;
 
 }

@@ -1,7 +1,22 @@
-
-  <div [ngClass]="target + ' container'">
-    <p class="temperature">{{temp }}</p>
-    <p class="weather">{{ weather }}</p>
-    <img [src]="video" alt="{{weather }}" class="video">
+<div class="weather-container">
+  <div class="container temperature-card">
+    <p class="temperature">{{ temperature }}</p>
+    <p class="weather">Température</p>
+    <img src="assets/images/sun.gif" alt="{{ temperature }}" class="video">
   </div>
-
+  <div class="container precipitation-card">
+    <p class="precipitation">{{ precipitation }}</p>
+    <p class="weather">Précipitations</p>
+    <img src="assets/images/rain.gif" alt="{{ precipitation }}" class="video">
+  </div>
+  <div class="container humidity-card">
+    <p class="relativeHumidity">{{ relativeHumidity }}</p>
+    <p class="weather">Humidité</p>
+    <img src="assets/images/humidite.gif" alt="{{ relativeHumidity }}" class="video">
+  </div>
+  <div class="container wind-card">
+    <p class="windSpeed">{{ windSpeed }}</p>
+    <p class="weather">Vitesse du vent</p>
+    <img src="assets/images/wind.gif" alt="{{ windSpeed }}" class="video">
+  </div>
+</div>

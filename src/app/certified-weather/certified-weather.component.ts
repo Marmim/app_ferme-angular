@@ -1,10 +1,9 @@
-import {Component, OnDestroy, OnInit, Renderer2} from '@angular/core';
-import {Modified} from "../models/farm.model";
-import {Subscription} from "rxjs";
-import {FarmService} from "../services/FarmService";
+import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
+import { Modified } from "../models/farm.model";
+import { Subscription } from "rxjs";
+import { FarmService } from "../services/FarmService";
 import * as bootstrap from 'bootstrap';
-import {style} from "@angular/animations";
-
+import {HourlyDailyWeather, WeatherService} from "../services/WeatherService";
 
 @Component({
   selector: 'app-certified-weather',
@@ -13,67 +12,56 @@ import {style} from "@angular/animations";
 })
 export class CertifiedWeatherComponent implements OnInit, OnDestroy  {
   farms: Modified[] | undefined;
+  hour : number | undefined;
   selectedFarmIndex = 0;
   selectedFarm: Modified | undefined;
   selectedDayIndex: number = 0;
   noFarmsMessage: string | null = null;
-
   private subscription: Subscription | undefined;
 
-  weather = [
-    {
-      temp: '28°C',
-      target: 'précipitations',
-      weather: 'Précipitations',
-      video: './assets/images/rain.gif',
-
-    },
-
-    {
-      temp: '40°C',
-      target: 'Temperature',
-      weather: 'Temperature',
-      video: './assets/images/sun.gif',
-
-    },
-    {
-      temp: '30°C',
-      target: 'Humidité',
-      weather: 'Humidité',
-      video: './assets/images/humidite.gif',
-
-    },
-    {
-      temp: '28°C',
-      target: 'vitesse',
-      weather: 'Vitesse du vent',
-      video: './assets/images/wind.gif',
-
-    },
-  ];
+  weatherData: HourlyDailyWeather | undefined;
+  errorMessage: string | null = null;
 
   constructor(
     private farmService: FarmService,
-    private renderer: Renderer2
-
+    private renderer: Renderer2,
+    private weatherService: WeatherService
   ) {}
 
   ngOnInit(): void {
     this.subscription = this.farmService.getFarmsByUser().subscribe(farms => {
       this.farms = farms;
+      this.hour = new Date().getHours()
       this.checkIfFarmsExist();
       this.updateSelectedFarm(this.selectedFarmIndex);
     });
   }
 
+  updateSelectedFarm(index: number): void {
+    if (this.farms && this.farms.length > index) {
+      this.selectedFarm = this.farms[index];
+      this.noFarmsMessage = null;
 
-updateSelectedFarm(index: number): void {
-  if (this.farms && this.farms.length > index) {
-  this.selectedFarm = this.farms[index];
-  this.noFarmsMessage = null;
+      console.log(this.hour);
+      const lat = this.selectedFarm?.latitude;
+      const lon = this.selectedFarm?.longitude;
 
-}
-}
+      if (lat && lon) {
+        this.weatherService.getWeatherData(lat, lon).subscribe(
+          (weatherData) => {
+            this.weatherData = weatherData;
+            // @ts-ignore
+            console.log(weatherData.data_1h.time[this.hour])
+          },
+          (error) => {
+            this.errorMessage = "Erreur lors de la récupération des données météo.";
+            console.error(error);
+          }
+        );
+      }
+    }
+  }
+
   checkIfFarmsExist(): void {
     if (!this.farms || this.farms.length === 0) {
       this.noFarmsMessage = "Aucune ferme ajoutée";
@@ -85,13 +73,15 @@ updateSelectedFarm(index: number): void {
       this.noFarmsMessage = null;
     }
   }
+
   onFarmChanged(selectedIndex: number): void {
     this.selectedFarmIndex = selectedIndex;
     this.updateSelectedFarm(selectedIndex);
   }
 
   ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
-
-
 }

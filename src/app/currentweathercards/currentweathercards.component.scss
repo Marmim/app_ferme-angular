@@ -1,40 +1,54 @@
+.weather-container {
+  display: flex;
+  flex-wrap: wrap; /* Permet aux cartes de passer à la ligne suivante si nécessaire */
+  gap: 20px; /* Espace entre les cartes */
+  padding: 20px;
+  justify-content: center; /* Centre les cartes horizontalement */
+}
 
 .container {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centre le contenu de chaque carte */
+  justify-content: center;
+  width: 180px; /* Largeur fixe pour les cartes */
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  width: 200px;
-}
-.Temperature {
-  background-color: #8295c1;
-}
-.Humidité {
-  background-color: #c35f0d;
-}
-.vitesse {
-  background-color: #846097;
-}
-.précipitations {
-  background-color: #266cac;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère autour des cartes */
 }
 
-
-
-.temperature {
-  font-size: 24px;
+.temperature-card {
+  background-color: #f39c12; /* Orange pour la température */
 }
 
+.precipitation-card {
+  background-color: #3498db; /* Bleu pour les précipitations */
+}
+
+.humidity-card {
+  background-color: #1abc9c; /* Vert pour l'humidité */
+}
+
+.wind-card {
+  background-color: #9b59b6; /* Violet pour la vitesse du vent */
+}
+
+.temperature, .precipitation, .relativeHumidity, .windSpeed {
+  font-size: 24px; /* Taille de la police pour les valeurs */
+  color: #fff; /* Couleur du texte */
+  margin: 0; /* Élimine les marges par défaut */
+}
 
 .weather {
-  font-size: 18px;
+  font-size: 18px; /* Taille de la police pour les labels */
+  color: #fff; /* Couleur du texte */
+  margin: 5px 0; /* Espacement vertical */
 }
 
 .video {
-  width: 100%;
-  height: auto;
-}
-
-.place {
-  display: flex;
-  align-items: center;
+  width: 100%; /* Largeur maximale pour l'image */
+  height: auto; /* Hauteur automatique pour maintenir le ratio */
+  border-radius: 8px; /* Coins arrondis pour l'image */
 }

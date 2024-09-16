@@ -1,21 +1,3 @@
-<!-- Modal pour aucune ferme trouvée -->
-<div class="modal fade" id="noFarmsModal" tabindex="-1" role="dialog" aria-labelledby="noFarmsModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content" style="background-color:#f3e5ad">
-      <div class="modal-header">
-        <i class="fa fa-warning" style="font-size:35px;color:#ffcc00"></i>
-        <h5 class="modal-title" id="noFarmsModalLabel">Aucune ferme ajoutée</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Aucune ferme ajoutée.
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Composant de sélection de ferme -->
 <app-selected-farm
   [farms]="farms"
@@ -25,7 +7,6 @@
 </app-selected-farm>
 <br><br>
 
-<!-- Liste des jours de la semaine -->
 <div class="weekdays-container">
   <div class="weekdays-list">
     <div
@@ -38,11 +19,20 @@
     </div>
   </div>
 </div>
+
 <app-weathercards
   [temperature]="weatherData?.data_day?.temperature_max[selectedDayIndex]"
   [relativeHumidity]="weatherData?.data_day?.relativehumidity_mean[selectedDayIndex]"
-  [windSpeed]="weatherData?.data_day?.windspeed_mean [selectedDayIndex]"
-  [precipitation]="weatherData?.data_day?.precipitation [selectedDayIndex]">
+  [windSpeed]="weatherData?.data_day?.windspeed_mean[selectedDayIndex]"
+  [precipitation]="weatherData?.data_day?.precipitation[selectedDayIndex]">
 </app-weathercards>
 
-
+<div *ngIf="selectedDayIndex !== undefined" class="mt-5 row">
+  <div class="col-xl-8">
+    <app-weather-chart
+      [hourlyData]="{
+        temperature: weatherData?.data_1h?.temperature || [],
+        relativeHumidity: weatherData?.data_1h?.relativehumidity || []
+      }"></app-weather-chart>
+  </div>
+</div>

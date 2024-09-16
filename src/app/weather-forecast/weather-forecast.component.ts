@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {Farm, Modified} from '../models/farm.model';
 import * as bootstrap from 'bootstrap';
-import {HourlyDailyWeather, HourlyDailyWeatherService} from "./HourlyDailyWeatherService";
+import {HourlyDailyWeather, WeatherService} from "../services/WeatherService";
 import {FarmService} from "../services/FarmService";
 import {round} from "@popperjs/core/lib/utils/math";
 
@@ -25,7 +25,7 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
 
   constructor(
     private farmService: FarmService,
-    private hourlyDailyWeatherService: HourlyDailyWeatherService,
+    private hourlyDailyWeatherService: WeatherService,
     private renderer: Renderer2
   ) {}
 
@@ -52,6 +52,7 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
         this.hourlyDailyWeatherService.getWeatherData(this.selectedFarm.latitude, this.selectedFarm.longitude).subscribe({
           next: (weatherData: any) => {
             this.weatherData = weatherData;
+            console.log(weatherData)
           },
           error: (error: any) => {
             console.error('Error fetching weather data', error);

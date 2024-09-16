@@ -7,11 +7,10 @@
 <br><br>
 <div class="container">
     <app-currentweathercards
-      *ngFor="let atm of weather"
-    [temp]="atm.temp"
-    [target]="atm.target"
-    [weather]="atm.weather"
-    [video]="atm.video">
+      [temperature]="weatherData?.data_1h?.temperature[hour]"
+      [relativeHumidity]="weatherData?.data_1h?.relativehumidity[hour]"
+      [precipitation]="weatherData?.data_1h?.precipitation[hour]"
+      [windSpeed]="weatherData?.data_1h?.windspeed[hour]">
     </app-currentweathercards>
   </div>
 

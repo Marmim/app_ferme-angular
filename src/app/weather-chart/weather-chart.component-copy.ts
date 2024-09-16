@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { ChartjsComponent  } from '@coreui/angular-chartjs';
+import { Chart , ChartData, ChartDataset, ChartOptions } from 'chart.js';
 
 interface HourlyChart {
   temperature: number[] | undefined;
@@ -9,14 +9,12 @@ interface HourlyChart {
 @Component({
   selector: 'app-weather-chart',
   templateUrl: './weather-chart.component.html',
-  styleUrls: ['./weather-chart.component.scss'],
-  /*standalone: true,
-  imports: [ChartjsComponent]*/
+  styleUrls: ['./weather-chart.component.scss']
 })
 export class WeatherChartComponent implements OnChanges {
   @Input() hourlyData!: HourlyChart;
   //protected data: ChartData<'line'> | undefined;
-  protected data: any | undefined;
+  protected data: ChartData | undefined;
 
   protected selected = 'temperature';
 
@@ -47,36 +45,35 @@ export class WeatherChartComponent implements OnChanges {
       labels: this.labels(),
       datasets: this.datasets(),
     };
-    console.log(this.data?.datasets)
   }
 
   private labels() {
     return [...Array(24).keys()].map(i => `${i}h`);
   }
 
-  private datasets(): any {
+  private datasets(): ChartDataset<'line', (number | null)[]>[] {
     const variable = this.variables.find(v => v.variable === this.selected);
-    //console.log(variable)
     const dataValues = this.hourlyData[this.selected] ?? [];
-    //console.log(dataValues.slice(0,24))
+    console.log(dataValues)
     return [
       {
         label: variable?.label,
         backgroundColor: variable?.color,
         borderColor: variable?.color,
         pointBackgroundColor: variable?.color,
-        data: dataValues.slice(0,24),
-        tension: 0.5
+        data: dataValues,
+        tension: 0.5,
+        type:"line"
       },
     ];
   }
 
-  protected options(): any | undefined {
+  protected options(): ChartOptions<'line'> | undefined {
     const variable = this.variables.find(v => v.variable === this.selected);
     return {
       plugins: {
         legend: {
-          display: true,
+          display: false,
           labels: {
             font: {
               size: 14,
@@ -98,7 +95,7 @@ export class WeatherChartComponent implements OnChanges {
         },
         x: {
           grid: {
-            display: true,
+            display: false,
           },
         },
       },
