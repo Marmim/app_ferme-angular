@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { ChartjsComponent  } from '@coreui/angular-chartjs';
 
 interface HourlyChart {
   temperature: number[] | undefined;
@@ -14,6 +13,7 @@ interface HourlyChart {
   imports: [ChartjsComponent]*/
 })
 export class WeatherChartComponent implements OnChanges {
+  @Input() selectedDayIndex!: number;
   @Input() hourlyData!: HourlyChart;
   //protected data: ChartData<'line'> | undefined;
   protected data: any | undefined;
@@ -65,7 +65,7 @@ export class WeatherChartComponent implements OnChanges {
         backgroundColor: variable?.color,
         borderColor: variable?.color,
         pointBackgroundColor: variable?.color,
-        data: dataValues.slice(0,24),
+        data: dataValues.slice(this.selectedDayIndex * 24, this.selectedDayIndex * 24 + 24),
         tension: 0.5
       },
     ];

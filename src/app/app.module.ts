@@ -32,12 +32,12 @@ import { LayoutComponent } from './layout/layout.component';
 import { WeatherForecastComponent } from './weather-forecast/weather-forecast.component';
 import { SelectedFarmComponent } from './selected-farm/selected-farm.component';
 import { WeathercardsComponent } from './weathercards/weathercards.component';
-import {ChartjsComponent} from "@coreui/angular-chartjs";
 import { WeatherChartComponent } from './weather-chart/weather-chart.component';
 import { CertifiedWeatherComponent } from './certified-weather/certified-weather.component';
 import { EditFarmComponent } from './edit-farm/edit-farm.component';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 import { CurrentweathercardsComponent } from './currentweathercards/currentweathercards.component';
+import {ChartjsComponent} from "@coreui/angular-chartjs";
 
 
 const routes: Routes = [
@@ -68,10 +68,6 @@ const routes: Routes = [
     CertifiedWeatherComponent,
     ConfirmDeleteComponent,
     CurrentweathercardsComponent,
-
-
-
-
   ],
   imports: [
     BrowserModule,
@@ -99,10 +95,10 @@ const routes: Routes = [
     HeaderTogglerDirective,
     IconDirective,
     SidebarModule,
-    ChartjsComponent,
     SelectedFarmComponent,
     SelectedFarmComponent,
     EditFarmComponent,
+    ChartjsComponent,
 
   ],
   providers: [

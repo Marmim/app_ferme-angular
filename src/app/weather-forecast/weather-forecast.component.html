@@ -27,12 +27,14 @@
   [precipitation]="weatherData?.data_day?.precipitation[selectedDayIndex]">
 </app-weathercards>
 
-<div *ngIf="selectedDayIndex !== undefined" class="mt-5 row">
+<div class="mt-5 row">
   <div class="col-xl-8">
     <app-weather-chart
       [hourlyData]="{
         temperature: weatherData?.data_1h?.temperature || [],
         relativeHumidity: weatherData?.data_1h?.relativehumidity || []
-      }"></app-weather-chart>
+      }"
+      [selectedDayIndex]="selectedDayIndex"
+></app-weather-chart>
   </div>
 </div>
