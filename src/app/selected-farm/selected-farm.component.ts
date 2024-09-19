@@ -1,4 +1,3 @@
-// selected-farm.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Modified } from "../models/farm.model";
 import {FormsModule} from "@angular/forms";

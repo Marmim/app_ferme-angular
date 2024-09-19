@@ -1,38 +1,67 @@
-<!-- Composant de sélection de ferme -->
-<app-selected-farm
-  [farms]="farms"
-  [selectedFarmIndex]="selectedFarmIndex"
-  [selectedFarm]="selectedFarm"
-  (farmChanged)="onFarmChanged($event)">
-</app-selected-farm>
-<br><br>
-
-<div class="weekdays-container">
-  <div class="weekdays-list">
-    <div
-      class="weekday"
-      *ngFor="let day of weekdays; let i = index"
-      (click)="onDaySelected(i)"
-      [class.selected]="selectedDayIndex === i"
-    >
-      {{ day }}
+<!-- Show modal when there are no farms -->
+<div *ngIf="!farms || farms.length === 0">
+  <!-- Modal Structure -->
+  <div class="modal fade" id="noFarmsModal" tabindex="-1" aria-labelledby="noFarmsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="noFarmsModalLabel">Aucune ferme ajoutée </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{ noFarmsMessage }}
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-primary" href="/map">Ajouter Ferme</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<app-weathercards
-  [temperature]="weatherData?.data_day?.temperature_max[selectedDayIndex]"
-  [relativeHumidity]="weatherData?.data_day?.relativehumidity_mean[selectedDayIndex]"
-  [windSpeed]="weatherData?.data_day?.windspeed_mean[selectedDayIndex]"
-  [precipitation]="weatherData?.data_day?.precipitation[selectedDayIndex]">
-</app-weathercards>
+<!-- Show farm selection and weather data only when farms exist -->
+<div *ngIf="farms && farms.length > 0">
+  <!-- Composant de sélection de ferme -->
+  <app-selected-farm
+    [farms]="farms"
+    [selectedFarmIndex]="selectedFarmIndex"
+    [selectedFarm]="selectedFarm"
+    (farmChanged)="onFarmChanged($event)">
+  </app-selected-farm>
 
-<div *ngIf="selectedDayIndex !== undefined" class="mt-5 row">
-  <div class="col-xl-8">
-    <app-weather-chart
-      [hourlyData]="{
-        temperature: weatherData?.data_1h?.temperature || [],
-        relativeHumidity: weatherData?.data_1h?.relativehumidity || []
-      }"></app-weather-chart>
+  <br><br>
+
+  <div class="weekdays-container">
+    <div class="weekdays-list">
+      <div
+        class="weekday"
+        *ngFor="let day of weekdays; let i = index"
+        (click)="onDaySelected(i)"
+        [class.selected]="selectedDayIndex === i"
+      >
+        {{ day }}
+      </div>
+    </div>
+  </div>
+
+  <app-weathercards
+    [temperature]="weatherData?.data_day?.temperature_max[selectedDayIndex]"
+    [relativeHumidity]="weatherData?.data_day?.relativehumidity_mean[selectedDayIndex]"
+    [windSpeed]="weatherData?.data_day?.windspeed_mean[selectedDayIndex]"
+    [windDirection]="weatherData?.data_day?.precipitation[selectedDayIndex]"
+    [precipitation]="weatherData?.data_day?.precipitation[selectedDayIndex]">
+  </app-weathercards>
+
+  <div class="mt-5 row">
+    <div class="col-xl-8">
+      <app-weather-chart
+        [hourlyData]="{
+          temperature: weatherData?.data_1h?.temperature || [],
+          relativeHumidity: weatherData?.data_1h?.relativehumidity || []
+        }"
+        [selectedDayIndex]="selectedDayIndex">
+      </app-weather-chart>
+    </div>
   </div>
 </div>

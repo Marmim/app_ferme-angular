@@ -7,6 +7,7 @@ import { WeatherForecastComponent } from './weather-forecast/weather-forecast.co
 import { LayoutComponent } from './layout/layout.component';
 import { SelectedFarmComponent } from './selected-farm/selected-farm.component';
 import {CertifiedWeatherComponent} from "./certified-weather/certified-weather.component";
+import {WeatherAgreComponent} from "./weather-agre/weather-agre.component";
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -18,6 +19,9 @@ const routes: Routes = [
     children: [
       { path: 'weather-forecast', component: WeatherForecastComponent },
       { path: 'certified-weather', component: CertifiedWeatherComponent },
+      { path: 'weather-agre', component: WeatherAgreComponent },
+
+
 
 
     ]

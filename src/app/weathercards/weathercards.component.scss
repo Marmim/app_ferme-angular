@@ -4,7 +4,6 @@ body {
 
 .container {
   width: 1200px !important;
-  padding: 0 !important;
   margin-right: auto;
   margin-left: auto;
 
@@ -25,12 +24,13 @@ body {
 
 .gradient-cards {
   display: grid;
-  grid-template-columns: repeat(4, 2fr);
-  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Ajustement automatique des colonnes */
+  gap: 27px; /* Réduction de l'espace entre les cartes */
   padding: 30px;
 
   @media screen and (max-width: 991px) {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
 }
 
@@ -41,23 +41,12 @@ body {
   background-clip: padding-box;
   border-radius: 45px;
   padding: 20px;
-  width: 280px;
-  height: 200px;
+  width: 225px; /* Prend toute la largeur disponible */
+  height: 187px;
   display: flex;
-  justify-content: space-between; // Distribute space between SVG, title, and value
-  align-items: center; // Center vertically
+  justify-content: flex-start;
+  align-items: center;
   margin-left: -60px;
-
-  img {
-    margin-bottom: 32px;
-  }
-}
-
-.bg-green-box,
-.bg-white-box,
-.bg-yellow-box,
-.bg-blue-box {
-  position: relative;
 }
 
 .bg-green-box::after,

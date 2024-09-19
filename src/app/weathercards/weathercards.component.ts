@@ -10,5 +10,7 @@ export class WeathercardsComponent {
   @Input({transform: numberAttribute}) relativeHumidity: number | undefined;
   @Input({transform: numberAttribute}) windSpeed: number | undefined;
   @Input({transform: numberAttribute}) precipitation: number | undefined;
+  @Input({transform: numberAttribute}) windDirection: number | undefined;
+
 
 }

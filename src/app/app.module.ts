@@ -38,6 +38,7 @@ import { CertifiedWeatherComponent } from './certified-weather/certified-weather
 import { EditFarmComponent } from './edit-farm/edit-farm.component';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 import { CurrentweathercardsComponent } from './currentweathercards/currentweathercards.component';
+import {WeatherAgreComponent} from "./weather-agre/weather-agre.component";
 
 
 const routes: Routes = [
@@ -46,7 +47,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'inscription', component: RegisterComponent},
   { path: 'weather-forecast', component: WeatherForecastComponent },
-  { path: 'certified-weather', component: CertifiedWeatherComponent }
+  { path: 'certified-weather', component: CertifiedWeatherComponent },
+  { path: 'weather-agre', component: WeatherAgreComponent }
+
+
 
 
 
@@ -68,6 +72,7 @@ const routes: Routes = [
     CertifiedWeatherComponent,
     ConfirmDeleteComponent,
     CurrentweathercardsComponent,
+    WeatherAgreComponent,
 
 
 

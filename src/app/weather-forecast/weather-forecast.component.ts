@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import {Farm, Modified} from '../models/farm.model';
+import { Farm, Modified } from '../models/farm.model';
 import * as bootstrap from 'bootstrap';
-import {HourlyDailyWeather, WeatherService} from "../services/WeatherService";
-import {FarmService} from "../services/FarmService";
-import {round} from "@popperjs/core/lib/utils/math";
+import { HourlyDailyWeather, WeatherService } from "../services/WeatherService";
+import { FarmService } from "../services/FarmService";
+import { round } from "@popperjs/core/lib/utils/math";
 
 
 @Component({
@@ -40,37 +40,36 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
   onFarmChanged(selectedIndex: number): void {
     this.selectedFarmIndex = selectedIndex;
     this.updateSelectedFarm(selectedIndex);
-
   }
 
   updateSelectedFarm(index: number): void {
     if (this.farms && this.farms.length > index) {
       this.selectedFarm = this.farms[index];
       this.noFarmsMessage = null;
-
-      if (this.selectedFarm.latitude && this.selectedFarm.longitude) {
-        this.hourlyDailyWeatherService.getWeatherData(this.selectedFarm.latitude, this.selectedFarm.longitude).subscribe({
-          next: (weatherData: any) => {
-            this.weatherData = weatherData;
-            console.log(weatherData)
-          },
-          error: (error: any) => {
-            console.error('Error fetching weather data', error);
-          },
-          complete: () => {
-            console.log('Weather data fetch completed');
-          }
-        });
-      }
+      this.fetchWeatherData();
     }
   }
 
-
-
   onDaySelected(index: number): void {
     this.selectedDayIndex = index;
-    console.log(index)
-    this.updateSelectedFarm(this.selectedFarmIndex);
+    this.fetchWeatherData();
+  }
+
+  fetchWeatherData(): void {
+    if (this.selectedFarm?.latitude && this.selectedFarm?.longitude) {
+      this.hourlyDailyWeatherService.getWeatherData(this.selectedFarm.latitude, this.selectedFarm.longitude).subscribe({
+        next: (weatherData: any) => {
+          this.weatherData = weatherData;
+          console.log(weatherData);
+        },
+        error: (error: any) => {
+          console.error('Error fetching weather data', error);
+        },
+        complete: () => {
+          console.log('Weather data fetch completed');
+        }
+      });
+    }
   }
 
   checkIfFarmsExist(): void {
@@ -78,6 +77,7 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
       this.noFarmsMessage = "Aucune ferme ajoutée";
       this.selectedFarm = undefined;
 
+      // Show the modal when no farms are available
       const modalElement = this.renderer.selectRootElement('#noFarmsModal', true);
       const modal = new bootstrap.Modal(modalElement, { keyboard: false });
       modal.show();
@@ -85,7 +85,6 @@ export class WeatherForecastComponent implements OnInit, OnDestroy {
       this.noFarmsMessage = null;
     }
   }
-
 
   ngOnDestroy(): void {
     if (this.subscription) {

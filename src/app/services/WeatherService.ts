@@ -10,6 +10,7 @@ export interface HourlyDailyWeather {
     precipitation: number[];
     windspeed_mean: number[];
     relativehumidity_mean:number[];
+    winddirection:number[];
   };
   data_1h: {
     temperature: number[];

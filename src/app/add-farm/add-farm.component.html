@@ -51,9 +51,13 @@
       <div>
         <label class="form-label" for="cultures">Cultures</label>
         <select class="form-control" formControlName="cultures" id="cultures" multiple>
-          <option value="culture1">Culture 1</option>
-          <option value="culture2">Culture 2</option>
-          <option value="culture3">Culture 3</option>
+          <option value="Onion">Onion</option>
+          <option value="olives">olives</option>
+          <option value="Carottes">Carottes</option>
+          <option value="Maïs">Maïs</option>
+          <option value="Tomate">Tomate</option>
+
+
         </select>
         <mat-error *ngIf="farmForm.get('cultures')?.hasError('required') && farmForm.get('cultures')?.touched">
           Les cultures sont requises.

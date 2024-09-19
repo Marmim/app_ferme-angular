@@ -10,11 +10,11 @@ interface HourlyChart {
   selector: 'app-weather-chart',
   templateUrl: './weather-chart.component.html',
   styleUrls: ['./weather-chart.component.scss'],
-  /*standalone: true,
-  imports: [ChartjsComponent]*/
+
 })
 export class WeatherChartComponent implements OnChanges {
   @Input() hourlyData!: HourlyChart;
+  @Input() selectedDayIndex!: number;
   //protected data: ChartData<'line'> | undefined;
   protected data: any | undefined;
 
@@ -65,7 +65,7 @@ export class WeatherChartComponent implements OnChanges {
         backgroundColor: variable?.color,
         borderColor: variable?.color,
         pointBackgroundColor: variable?.color,
-        data: dataValues.slice(0,24),
+        data: dataValues.slice(this.selectedDayIndex * 24, this.selectedDayIndex * 24 + 24),
         tension: 0.5
       },
     ];

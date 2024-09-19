@@ -1,0 +1,106 @@
+<!-- Show modal when there are no farms -->
+<div *ngIf="!farms || farms.length === 0">
+  <!-- Modal Structure -->
+  <div class="modal fade" id="noFarmsModal" tabindex="-1" aria-labelledby="noFarmsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="noFarmsModalLabel">Aucune ferme ajoutée </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {{ noFarmsMessage }}
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-primary" href="/map">Ajouter Ferme</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div *ngIf="farms && farms.length > 0">
+  <app-selected-farm
+    [farms]="farms"
+    [selectedFarmIndex]="selectedFarmIndex"
+    [selectedFarm]="selectedFarm"
+    (farmChanged)="onFarmChanged($event)">
+  </app-selected-farm>
+
+  <div class="controls">
+    <div class="select-group">
+      <label for="culture">Culture</label>
+      <select id="culture">
+        <option value="Tomate">Tomate</option>
+        <option value="Maïs">Maïs</option>
+        <option value="Carottes">Carottes</option>
+        <option value="Onion">Onion</option>
+      </select>
+    </div>
+    <div class="select-group">
+      <label for="coverage">Taux couverture</label>
+      <select id="coverage">
+        <option value="70%">70%</option>
+        <option value="50%">50%</option>
+        <option value="100%">100%</option>
+      </select>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Jour</th>
+      <th>K<sub>c</sub></th>
+      <th>ET<sub>0</sub> (mm)</th>
+      <th>ET<sub>c</sub> (mm)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>sam.</td>
+      <td>0.60</td>
+      <td>3.59</td>
+      <td>2.154</td>
+    </tr>
+    <tr>
+      <td>dim.</td>
+      <td>0.60</td>
+      <td>3.72</td>
+      <td>2.232</td>
+    </tr>
+    <tr>
+      <td>lun.</td>
+      <td>0.50</td>
+      <td>4.65</td>
+      <td>2.325</td>
+    </tr>
+    <tr>
+      <td>mar.</td>
+      <td>0.80</td>
+      <td>4.96</td>
+      <td>3.968</td>
+    </tr>
+    <tr>
+      <td>mer.</td>
+      <td>0.80</td>
+      <td>4.96</td>
+      <td>3.968</td>
+    </tr>
+    <tr>
+      <td>jeu.</td>
+      <td>0.55</td>
+      <td>4.12</td>
+      <td>2.266</td>
+    </tr>
+    <tr>
+      <td>ven.</td>
+      <td>0.75</td>
+      <td>4.83</td>
+      <td>3.622</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

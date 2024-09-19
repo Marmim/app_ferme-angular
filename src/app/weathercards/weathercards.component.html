@@ -38,6 +38,21 @@
       <div class="value">{{ windSpeed }} km/h</div>
     </div>
     </div>
+    <div class="container-card bg-yellow-box">
+      <svg width="100" height="80" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <!-- Wind Curves -->
+        <path d="M30 20 Q 40 30, 50 20 T 70 20" stroke="#00bcd4" stroke-width="4" fill="none"/>
+        <path d="M30 35 Q 40 45, 50 35 T 70 35" stroke="#00bcd4" stroke-width="4" fill="none"/>
+        <path d="M30 50 Q 40 60, 50 50 T 70 50" stroke="#00bcd4" stroke-width="4" fill="none"/>
+        <path d="M30 65 Q 40 75, 50 65 T 70 65" stroke="#00bcd4" stroke-width="4" fill="none"/>
+        <line x1="70" y1="70" x2="100" y2="70" stroke="#00bcd4" stroke-width="4"/>
+        <polygon points="100,65 100,75 110,70" fill="#00bcd4"/>
+      </svg>
+      <div>
+        <div class="card-title">Direction du vent</div><br>
+        <div class="value">{{ windDirection }} </div>
+      </div>
+    </div>
 
     <div class="container-card bg-blue-box">
       <svg width="80" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">

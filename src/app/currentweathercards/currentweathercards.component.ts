@@ -9,6 +9,8 @@ export class CurrentweathercardsComponent {
   @Input({transform: numberAttribute}) temperature: number | undefined;
   @Input({transform: numberAttribute}) relativeHumidity: number | undefined;
   @Input({transform: numberAttribute}) windSpeed: number | undefined;
+  @Input({transform: numberAttribute}) windDirection: number | undefined;
   @Input({transform: numberAttribute}) precipitation: number | undefined;
+
 
 }

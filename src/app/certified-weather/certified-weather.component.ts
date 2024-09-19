@@ -3,16 +3,16 @@ import { Modified } from "../models/farm.model";
 import { Subscription } from "rxjs";
 import { FarmService } from "../services/FarmService";
 import * as bootstrap from 'bootstrap';
-import {HourlyDailyWeather, WeatherService} from "../services/WeatherService";
+import { HourlyDailyWeather, WeatherService } from "../services/WeatherService";
 
 @Component({
   selector: 'app-certified-weather',
   templateUrl: './certified-weather.component.html',
   styleUrls: ['./certified-weather.component.scss']
 })
-export class CertifiedWeatherComponent implements OnInit, OnDestroy  {
+export class CertifiedWeatherComponent implements OnInit, OnDestroy {
   farms: Modified[] | undefined;
-  hour : number | undefined;
+  hour: number | undefined;
   selectedFarmIndex = 0;
   selectedFarm: Modified | undefined;
   selectedDayIndex: number = 0;
@@ -31,7 +31,7 @@ export class CertifiedWeatherComponent implements OnInit, OnDestroy  {
   ngOnInit(): void {
     this.subscription = this.farmService.getFarmsByUser().subscribe(farms => {
       this.farms = farms;
-      this.hour = new Date().getHours()
+      this.hour = new Date().getHours();
       this.checkIfFarmsExist();
       this.updateSelectedFarm(this.selectedFarmIndex);
     });
@@ -50,8 +50,6 @@ export class CertifiedWeatherComponent implements OnInit, OnDestroy  {
         this.weatherService.getWeatherData(lat, lon).subscribe(
           (weatherData) => {
             this.weatherData = weatherData;
-            // @ts-ignore
-            console.log(weatherData.data_1h.time[this.hour])
           },
           (error) => {
             this.errorMessage = "Erreur lors de la récupération des données météo.";

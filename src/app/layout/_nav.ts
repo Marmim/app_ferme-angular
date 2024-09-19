@@ -16,7 +16,7 @@ export const items: INavData[] = [
   },
   {
     name: 'Méteo Agrégée',
-    url: '/weather-agro',
+    url: '/weather-agre',
     icon: 'fa-solid fa-square-root-variable',
     class: 'custom-nav-item',
 
