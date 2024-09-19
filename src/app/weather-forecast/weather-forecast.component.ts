@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Farm, Modified } from '../models/farm.model';
+import { Farm } from '../models/farm.model';
 import * as bootstrap from 'bootstrap';
 import { HourlyDailyWeather, WeatherService } from "../services/WeatherService";
 import { FarmService } from "../services/FarmService";
@@ -14,9 +14,9 @@ import { round } from "@popperjs/core/lib/utils/math";
 })
 export class WeatherForecastComponent implements OnInit, OnDestroy {
 
-  farms: Modified[] | undefined;
+  farms: Farm[] | undefined;
   selectedFarmIndex = 0;
-  selectedFarm: Modified | undefined;
+  selectedFarm: Farm | undefined;
   selectedDayIndex: number = 0;
   weatherData: HourlyDailyWeather | undefined;
   noFarmsMessage: string | null = null;

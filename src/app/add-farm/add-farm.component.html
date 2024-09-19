@@ -48,20 +48,35 @@
         </mat-error>
       </div>
 
-      <div>
-        <label class="form-label" for="cultures">Cultures</label>
-        <select class="form-control" formControlName="cultures" id="cultures" multiple>
-          <option value="Onion">Onion</option>
-          <option value="olives">olives</option>
-          <option value="Carottes">Carottes</option>
-          <option value="Maïs">Maïs</option>
-          <option value="Tomate">Tomate</option>
+      <!-- Section pour ajouter des cultures et dates de semis -->
+      <div formArrayName="cultures">
+        <div *ngFor="let culture of cultures.controls; let i = index" [formGroupName]="i" class="row mb-3">
+          <div class="col-6">
+            <label class="form-label" for="culture">Culture</label>
+            <select formControlName="name" class="form-select" id="culture">
+              <option value="Onion">Onion</option>
+              <option value="Olives">Olives</option>
+              <option value="Carottes">Carottes</option>
+              <option value="Maïs">Maïs</option>
+              <option value="Tomate">Tomate</option>
+            </select>
+            <mat-error *ngIf="culture.get('name')?.hasError('required') && culture.get('name')?.touched">
+              La culture est requise.
+            </mat-error>
+          </div>
 
+          <div class="col-6">
+            <label class="form-label" for="semis">Date de semise</label>
+            <input type="date" class="form-control" formControlName="semis" id="semis" />
+            <mat-error *ngIf="culture.get('semis')?.hasError('required') && culture.get('semis')?.touched">
+              La date de semise est requise.
+            </mat-error>
+          </div>
+        </div>
+        <div class="col-12 mt-3">
+          <button type="button" class="btn btn-primary" (click)="addCulture()">Ajouter une culture</button>
+        </div>
 
-        </select>
-        <mat-error *ngIf="farmForm.get('cultures')?.hasError('required') && farmForm.get('cultures')?.touched">
-          Les cultures sont requises.
-        </mat-error>
       </div>
     </div>
   </mat-dialog-content>

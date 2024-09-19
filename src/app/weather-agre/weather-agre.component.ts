@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
-import { Farm, Modified } from '../models/farm.model';
+import { Farm } from '../models/farm.model';
 import { Subscription } from 'rxjs';
 import { FarmService } from '../services/FarmService';
 import * as bootstrap from 'bootstrap';
@@ -10,11 +10,11 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './weather-agre.component.html',
   styleUrls: ['./weather-agre.component.scss']
 })
-export class WeatherAgreComponent implements OnInit, OnDestroy {
-
-  farms: Modified[] | undefined;
+export class WeatherAgroComponent implements OnInit, OnDestroy {
+  canopy = 70;
+  farms: Farm[] | undefined;
   selectedFarmIndex = 0;
-  selectedFarm: Modified | undefined;
+  selectedFarm: Farm | undefined;
   selectedDayIndex: number = 0;
   noFarmsMessage: string | null = null;
   form = new FormGroup({
@@ -22,12 +22,52 @@ export class WeatherAgreComponent implements OnInit, OnDestroy {
     canopy: new FormControl<number | null>(null),
   });
 
+  crops = [
+    {
+      name: 'Citrus',
+      et0: [3.51, 3.52, 3.53, 3.54, 3.55, 3.56, 3.57],
+      canopy: [
+        {
+          value: 70,
+          kc: [0,6, 0,6, 0,6, 0,6, 0,6, 0,6, 0.6],
+        },
+        {
+          value: 50,
+          kc: [0,7, 0,7, 0,7, 0,7, 0,7, 0,7, 0.7],
+        }
+      ]
+    },
+    {
+      name: 'Maïs',
+      canopy: [
+        {
+          value: -1,
+          kc: [0,7, 0,7, 0,7, 0,7, 0,7, 0,7, 0.7],
+        }
+      ],
+      et0: [3.59, 3.59, 3.59, 3.59, 3.59, 3.59, 3.59]
+    },
+    {
+      name: 'Carottes',
+      canopy: [
+        {
+          value: -1,
+          kc: [0,7, 0,7, 0,7, 0,7, 0,7, 0,7, 0.7],
+        }
+      ],
+      et0: [3.59, 3.59, 3.59, 3.59, 3.59, 3.59, 3.59]
+    },
+  ];
+
+  selectedCrop = this.crops[0];
+
   private subscription: Subscription | undefined;
 
   constructor(
     private farmService: FarmService,
     private renderer: Renderer2
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.subscription = this.farmService.getFarmsByUser().subscribe(farms => {

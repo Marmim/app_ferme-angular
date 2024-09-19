@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, Renderer2 } from '@angular/core';
-import { Modified } from "../models/farm.model";
+import { Farm } from "../models/farm.model";
 import { Subscription } from "rxjs";
 import { FarmService } from "../services/FarmService";
 import * as bootstrap from 'bootstrap';
@@ -11,10 +11,10 @@ import { HourlyDailyWeather, WeatherService } from "../services/WeatherService";
   styleUrls: ['./certified-weather.component.scss']
 })
 export class CertifiedWeatherComponent implements OnInit, OnDestroy {
-  farms: Modified[] | undefined;
+  farms: Farm[] | undefined;
   hour: number | undefined;
   selectedFarmIndex = 0;
-  selectedFarm: Modified | undefined;
+  selectedFarm: Farm | undefined;
   selectedDayIndex: number = 0;
   noFarmsMessage: string | null = null;
   private subscription: Subscription | undefined;

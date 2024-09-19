@@ -25,10 +25,27 @@ export class AddFarmComponent implements OnInit {
         douar: ['', Validators.required],
         longitude: ['', [Validators.required,]],
         latitude: ['', [Validators.required]],
-        cultures: [[], Validators.required],
+         cultures: this.fb.array([], Validators.required),
 
       });
   }
+  // Getter pour accéder au FormArray des cultures
+  get cultures(): FormArray {
+    return this.farmForm.get('cultures') as FormArray;
+  }
+
+  // Fonction pour créer un FormGroup pour chaque culture
+  createCultureGroup(): FormGroup {
+    return this.fb.group({
+      name: ['', Validators.required],
+      semis: ['', Validators.required]
+    });
+  }
+
+  addCulture(): void {
+    this.cultures.push(this.createCultureGroup());
+  }
+
 
   ngOnInit(): void {
     if (this.data) {
@@ -44,8 +61,9 @@ export class AddFarmComponent implements OnInit {
 
       const farm: Farm = this.farmForm.value;
       const c = farm.cultures.map(culture => ({
-        nom: culture,
-        cultureCoefficient: 0
+        nom: culture.nom,
+        cultureCoefficient: 0,
+        dateSemis: new Date()
       }));
       const modified = {...farm, cultures: c}
       this.farmService.addFarm(modified).subscribe();

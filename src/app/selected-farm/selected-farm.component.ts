@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Modified } from "../models/farm.model";
+import { Farm } from "../models/farm.model";
 import {FormsModule} from "@angular/forms";
 import {DecimalPipe, NgForOf, NgIf} from "@angular/common";
 
@@ -16,9 +16,9 @@ import {DecimalPipe, NgForOf, NgIf} from "@angular/common";
   styleUrls: ['./selected-farm.component.scss']
 })
 export class SelectedFarmComponent {
-  @Input() farms: Modified[] | undefined;
+  @Input() farms: Farm[] | undefined;
   @Input() selectedFarmIndex = 0;
-  @Input() selectedFarm: Modified | undefined;
+  @Input() selectedFarm: Farm | undefined;
   @Input() noFarmsMessage: string | null = null;
   @Output() farmChanged = new EventEmitter<number>();
 

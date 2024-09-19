@@ -3,7 +3,7 @@ import { Map, MapStyle, config, Marker, LngLatLike } from '@maptiler/sdk';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { AddFarmComponent } from '../add-farm/add-farm.component';
-import { Farm, Modified } from '../models/farm.model';
+import { Farm } from '../models/farm.model';
 import { FarmService } from "../services/FarmService";
 import { marker } from "leaflet";
 import { EditFarmComponent } from "../edit-farm/edit-farm.component";
@@ -96,7 +96,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  openEditFarmDialog(farm: Modified): void {
+  openEditFarmDialog(farm: Farm): void {
     const dialogRef = this.dialog.open(EditFarmComponent, {
       width: '480px',
       data: farm

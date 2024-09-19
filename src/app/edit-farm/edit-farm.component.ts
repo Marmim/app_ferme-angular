@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef, MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
-import {Farm, Modified} from "../models/farm.model";
+import {Farm} from "../models/farm.model";
 import {FarmService} from "../services/FarmService";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
@@ -20,11 +20,11 @@ import {FormsModule} from "@angular/forms"; // Assurez-vous que le chemin est co
   styleUrls: ['./edit-farm.component.scss']
 })
 export class EditFarmComponent {
-  farm: Modified;
+  farm: Farm;
 
   constructor(
     public dialogRef: MatDialogRef<EditFarmComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Modified,
+    @Inject(MAT_DIALOG_DATA) public data: Farm,
     private farmService: FarmService,
     private dialog: MatDialog
   ) {
@@ -37,13 +37,14 @@ export class EditFarmComponent {
   }
 
   get culturesString(): string {
-    return this.farm.cultures.map(culture => culture.nom).join(', ');
+    return this.farm.cultures.map(culture => culture.nom,).join(', ');
   }
 
   set culturesString(value: string) {
     this.farm.cultures = value.split(',').map(name => ({
       nom: name.trim(),
-      cultureCoefficient: 0
+      cultureCoefficient: 0,
+      dateSemis: new Date()
     }));
   }
 

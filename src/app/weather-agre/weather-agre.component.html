@@ -32,19 +32,18 @@
   <div class="controls">
     <div class="select-group">
       <label for="culture">Culture</label>
-      <select id="culture">
-        <option value="Tomate">Tomate</option>
-        <option value="Maïs">Maïs</option>
-        <option value="Carottes">Carottes</option>
-        <option value="Onion">Onion</option>
+      <select id="culture" [(ngModel)]="selectedCrop">
+        <option *ngFor="let crop of crops" [ngValue]="crop">
+          {{crop.name}}
+        </option>
       </select>
     </div>
-    <div class="select-group">
+    <div *ngIf="selectedCrop.canopy.length > 1" class="select-group">
       <label for="coverage">Taux couverture</label>
-      <select id="coverage">
-        <option value="70%">70%</option>
-        <option value="50%">50%</option>
-        <option value="100%">100%</option>
+      <select id="coverage" [(ngModel)]="canopy">
+        <option *ngFor="let canopy of selectedCrop.canopy" value="70">
+          {{ canopy.value }}
+        </option>
       </select>
     </div>
   </div>
@@ -53,54 +52,19 @@
     <thead>
     <tr>
       <th>Jour</th>
-      <th>K<sub>c</sub></th>
       <th>ET<sub>0</sub> (mm)</th>
+      <th>K<sub>c</sub></th>
       <th>ET<sub>c</sub> (mm)</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>sam.</td>
-      <td>0.60</td>
-      <td>3.59</td>
-      <td>2.154</td>
-    </tr>
-    <tr>
-      <td>dim.</td>
-      <td>0.60</td>
-      <td>3.72</td>
-      <td>2.232</td>
-    </tr>
-    <tr>
-      <td>lun.</td>
-      <td>0.50</td>
-      <td>4.65</td>
-      <td>2.325</td>
-    </tr>
-    <tr>
-      <td>mar.</td>
-      <td>0.80</td>
-      <td>4.96</td>
-      <td>3.968</td>
-    </tr>
-    <tr>
-      <td>mer.</td>
-      <td>0.80</td>
-      <td>4.96</td>
-      <td>3.968</td>
-    </tr>
-    <tr>
-      <td>jeu.</td>
-      <td>0.55</td>
-      <td>4.12</td>
-      <td>2.266</td>
-    </tr>
-    <tr>
-      <td>ven.</td>
-      <td>0.75</td>
-      <td>4.83</td>
-      <td>3.622</td>
-    </tr>
+<!--    <tr *ngFor="let et0 of selectedCrop.et0">-->
+<!--      <td>sam.</td>-->
+<!--      <td>{{ et0 }}</td>-->
+<!--      <td>3.59</td>-->
+<!--      <td>2.154</td>-->
+<!--    </tr>-->
+    {{selectedCrop | json}}
     </tbody>
   </table>
 </div>
