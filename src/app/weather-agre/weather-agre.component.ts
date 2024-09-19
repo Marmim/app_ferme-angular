@@ -11,7 +11,7 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./weather-agre.component.scss']
 })
 export class WeatherAgroComponent implements OnInit, OnDestroy {
-  canopy = 70;
+  selectedCanopyIndex = 0;
   farms: Farm[] | undefined;
   selectedFarmIndex = 0;
   selectedFarm: Farm | undefined;
@@ -29,11 +29,11 @@ export class WeatherAgroComponent implements OnInit, OnDestroy {
       canopy: [
         {
           value: 70,
-          kc: [0,6, 0,6, 0,6, 0,6, 0,6, 0,6, 0.6],
+          kc: [0.6, 0.6, 0.6, 0.6, 0.6, 0.6, 0.6],
         },
         {
           value: 50,
-          kc: [0,7, 0,7, 0,7, 0,7, 0,7, 0,7, 0.7],
+          kc: [0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7],
         }
       ]
     },
@@ -42,7 +42,7 @@ export class WeatherAgroComponent implements OnInit, OnDestroy {
       canopy: [
         {
           value: -1,
-          kc: [0,7, 0,7, 0,7, 0,7, 0,7, 0,7, 0.7],
+          kc: [0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7],
         }
       ],
       et0: [3.59, 3.59, 3.59, 3.59, 3.59, 3.59, 3.59]
@@ -52,7 +52,7 @@ export class WeatherAgroComponent implements OnInit, OnDestroy {
       canopy: [
         {
           value: -1,
-          kc: [0,7, 0,7, 0,7, 0,7, 0,7, 0,7, 0.7],
+          kc: [0.7, 0.7, 0.7, 0.7, 0.7, 0.7, 0.7],
         }
       ],
       et0: [3.59, 3.59, 3.59, 3.59, 3.59, 3.59, 3.59]

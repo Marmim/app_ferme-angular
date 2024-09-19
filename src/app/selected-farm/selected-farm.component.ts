@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {Component, Input, Output, EventEmitter, OnInit} from '@angular/core';
 import { Farm } from "../models/farm.model";
 import {FormsModule} from "@angular/forms";
 import {DecimalPipe, NgForOf, NgIf} from "@angular/common";
+import {CropConcatPipePipe} from "./CropConcatPipe.pipe";
 
 @Component({
   selector: 'app-selected-farm',
@@ -11,7 +12,8 @@ import {DecimalPipe, NgForOf, NgIf} from "@angular/common";
     FormsModule,
     NgForOf,
     NgIf,
-    DecimalPipe
+    DecimalPipe,
+    CropConcatPipePipe,
   ],
   styleUrls: ['./selected-farm.component.scss']
 })

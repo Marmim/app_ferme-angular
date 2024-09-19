@@ -40,8 +40,8 @@
     </div>
     <div *ngIf="selectedCrop.canopy.length > 1" class="select-group">
       <label for="coverage">Taux couverture</label>
-      <select id="coverage" [(ngModel)]="canopy">
-        <option *ngFor="let canopy of selectedCrop.canopy" value="70">
+      <select id="coverage" [(ngModel)]="selectedCanopyIndex">
+        <option *ngFor="let canopy of selectedCrop.canopy; let i = index" [value]="i">
           {{ canopy.value }}
         </option>
       </select>
@@ -58,13 +58,12 @@
     </tr>
     </thead>
     <tbody>
-<!--    <tr *ngFor="let et0 of selectedCrop.et0">-->
-<!--      <td>sam.</td>-->
-<!--      <td>{{ et0 }}</td>-->
-<!--      <td>3.59</td>-->
-<!--      <td>2.154</td>-->
-<!--    </tr>-->
-    {{selectedCrop | json}}
+    <tr *ngFor="let et0 of selectedCrop.et0; let i = index">
+      <td>sam.</td>
+      <td>{{ et0 }}</td>
+      <td>{{selectedCrop.canopy[selectedCanopyIndex].kc[i]}}</td>
+      <td>{{et0 * selectedCrop.canopy[selectedCanopyIndex].kc[i] | number: '1.0-3'  }}</td>
+    </tr>
     </tbody>
   </table>
 </div>
